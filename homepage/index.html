@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電子商務網站</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 分類區塊 -->
+    <section class="categories">
+        <h2>Categories</h2>
+        <div class="category-container">
+            <div class="category-item">
+                <div class="category-icon">
+                    <img src="https://picsum.photos/seed/clothing/200" alt="衣服圖示" class="category-img">
+                </div>
+                <p>Clothing</p>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">
+                    <img src="https://picsum.photos/seed/shoes/200" alt="鞋子圖示" class="category-img">
+                </div>
+                <p>Shoes</p>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">
+                    <img src="https://picsum.photos/seed/accessories/200" alt="配件圖示" class="category-img">
+                </div>
+                <p>Accessories</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 品牌介紹區塊 -->
+    <section class="brand-intro">
+        <h2>Brand Introduction</h2>
+        <p class="intro-text">Explore our core values and mission.</p>
+        
+        <div class="values-container">
+            <div class="value-item">
+                <div class="value-img-container">
+                    <img src="https://picsum.photos/seed/quality/300" alt="品質優先" class="value-img">
+                </div>
+                <div class="value-content">
+                    <h3>Quality First</h3>
+                    <p>We are committed to providing only the best products.</p>
+                </div>
+            </div>
+            <div class="value-item">
+                <div class="value-img-container">
+                    <img src="https://picsum.photos/seed/sustainability/300" alt="永續發展" class="value-img">
+                </div>
+                <div class="value-content">
+                    <h3>Sustainability</h3>
+                    <p>We care for the environment and source responsibly.</p>
+                </div>
+            </div>
+            <div class="value-item">
+                <div class="value-img-container">
+                    <img src="https://picsum.photos/seed/customer/300" alt="客戶滿意" class="value-img">
+                </div>
+                <div class="value-content">
+                    <h3>Customer Satisfaction</h3>
+                    <p>Your happiness is our priority.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 熱銷產品區塊 -->
+    <section class="best-selling">
+        <h2>Best-Selling Products</h2>
+        <p class="selling-text">Check out our recommended favorites!</p>
+        
+        <div class="products-container">
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="https://picsum.photos/seed/shirt/400/500" alt="男士休閒襯衫" class="product-img">
+                    <div class="product-label">Stylish Shirt</div>
+                </div>
+                <div class="product-info">
+                    <h3>Men's Casual Shirt</h3>
+                    <p class="price">$29.99</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="https://picsum.photos/seed/sweater/400/500" alt="女士針織毛衣" class="product-img">
+                    <div class="product-label">Cozy Sweater</div>
+                </div>
+                <div class="product-info">
+                    <h3>Women's Knit Sweater</h3>
+                    <p class="price">$39.99</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="https://picsum.photos/seed/shoes/400/500" alt="中性跑鞋" class="product-img">
+                    <div class="product-label">Sporty Sneakers</div>
+                </div>
+                <div class="product-info">
+                    <h3>Unisex Running Shoes</h3>
+                    <p class="price">$49.99</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 客戶評價區塊 -->
+    <section class="testimonials">
+        <div class="testimonial-header">
+            <h2>Customer Testimonials</h2>
+            <p>See what our happy customers have to say.</p>
+        </div>
+        <div class="testimonial-container">
+            <div class="testimonial-card">
+                <div class="testimonial-profile">
+                    <div class="profile-img">
+                        <img src="https://picsum.photos/seed/alice/100" alt="Alice" class="avatar">
+                    </div>
+                    <p class="profile-name">Alice</p>
+                    <div class="rating">★★★★★</div>
+                </div>
+                <p class="testimonial-text">Amazing quality and fast shipping!</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-profile">
+                    <div class="profile-img">
+                        <img src="https://picsum.photos/seed/bob/100" alt="Bob" class="avatar">
+                    </div>
+                    <p class="profile-name">Bob</p>
+                    <div class="rating">★★★★★</div>
+                </div>
+                <p class="testimonial-text">Great customer service, highly recommended!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 註冊/登入區塊 -->
+    <section class="auth-section">
+        <div class="auth-header">
+            <h2>Register or Log In</h2>
+            <p>Join us for exclusive offers and great deals.</p>
+        </div>
+        <div class="auth-container">
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+                </div>
+                <div class="auth-buttons">
+                    <button type="button" class="google-btn">Login with Google</button>
+                    <button type="submit" class="register-btn">Register</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>© 2022 My E-commerce Store. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
