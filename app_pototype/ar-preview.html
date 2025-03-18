@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR 預覽 - 室內設計互動應用</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .ar-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        .ar-guide {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 2px dashed white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(2px);
+        }
+        
+        .ar-info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .ar-furniture {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 12px;
+            width: 90%;
+            max-width: 340px;
+        }
+        
+        .ar-furniture-list {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding: 4px;
+        }
+        
+        .ar-furniture-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+        
+        .ar-furniture-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background-color: #f5f5f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 24px;
+            color: #007AFF;
+        }
+        
+        .ar-furniture-name {
+            font-size: 12px;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態列 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <span>9:41</span>
+        </div>
+        <div class="status-bar-center">AR 預覽</div>
+        <div class="status-bar-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi ml-2"></i>
+            <i class="fas fa-battery-full ml-2"></i>
+        </div>
+    </div>
+
+    <!-- AR 視圖 -->
+    <div class="ar-view">
+        <!-- 使用真實的室內照片模擬 AR 相機視圖 -->
+        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="AR 視圖" class="w-full h-full object-cover">
+        
+        <!-- AR 覆蓋層 -->
+        <div class="ar-overlay">
+            <!-- AR 引導框 -->
+            <div class="ar-guide">
+                <div>
+                    <i class="fas fa-vector-square text-2xl mb-2"></i>
+                    <p>掃描平面以放置家具</p>
+                </div>
+            </div>
+            
+            <!-- AR 信息 -->
+            <div class="ar-info">
+                <i class="fas fa-info-circle mr-2"></i>
+                <span>移動手機以掃描更多區域</span>
+            </div>
+            
+            <!-- AR 家具選擇器 -->
+            <div class="ar-furniture">
+                <h3 class="font-medium mb-3 text-center">選擇要放置的家具</h3>
+                <div class="ar-furniture-list">
+                    <div class="ar-furniture-item">
+                        <div class="ar-furniture-icon">
+                            <i class="fas fa-couch"></i>
+                        </div>
+                        <div class="ar-furniture-name">沙發</div>
+                    </div>
+                    <div class="ar-furniture-item">
+                        <div class="ar-furniture-icon">
+                            <i class="fas fa-table"></i>
+                        </div>
+                        <div class="ar-furniture-name">桌子</div>
+                    </div>
+                    <div class="ar-furniture-item">
+                        <div class="ar-furniture-icon">
+                            <i class="fas fa-chair"></i>
+                        </div>
+                        <div class="ar-furniture-name">椅子</div>
+                    </div>
+                    <div class="ar-furniture-item">
+                        <div class="ar-furniture-icon">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div class="ar-furniture-name">床</div>
+                    </div>
+                    <div class="ar-furniture-item">
+                        <div class="ar-furniture-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="ar-furniture-name">燈具</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AR 控制按鈕 -->
+            <div class="ar-controls">
+                <button class="ar-control-btn">
+                    <i class="fas fa-undo"></i>
+                </button>
+                <button class="ar-control-btn">
+                    <i class="fas fa-camera"></i>
+                </button>
+                <button class="ar-control-btn">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </a>
+        <a href="explore.html" class="tab-item">
+            <i class="fas fa-compass"></i>
+            <span>探索</span>
+        </a>
+        <a href="design-tool.html" class="tab-item">
+            <i class="fas fa-pencil-ruler"></i>
+            <span>設計</span>
+        </a>
+        <a href="community.html" class="tab-item">
+            <i class="fas fa-users"></i>
+            <span>社區</span>
+        </a>
+        <a href="profile.html" class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+</body>
+</html>

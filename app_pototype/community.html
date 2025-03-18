@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社區 - 室內設計互動應用</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- iOS 狀態列 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <span>9:41</span>
+        </div>
+        <div class="status-bar-center">社區</div>
+        <div class="status-bar-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi ml-2"></i>
+            <i class="fas fa-battery-full ml-2"></i>
+        </div>
+    </div>
+
+    <!-- 主要內容 -->
+    <div class="container">
+        <!-- 頂部操作欄 -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">設計社區</h1>
+            <button class="btn btn-primary py-2 px-4">
+                <i class="fas fa-plus mr-2"></i>
+                發布
+            </button>
+        </div>
+
+        <!-- 分類選擇器 -->
+        <div class="segmented-control mb-6">
+            <div class="segment active">熱門</div>
+            <div class="segment">最新</div>
+            <div class="segment">關注</div>
+            <div class="segment">附近</div>
+        </div>
+
+        <!-- 社區帖子 -->
+        <div class="section">
+            <!-- 帖子 1 -->
+            <div class="card mb-6">
+                <!-- 帖子頭部 -->
+                <div class="flex items-center p-4">
+                    <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="用戶頭像" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium">林美玲</div>
+                        <div class="text-xs text-gray-500">北歐風格設計師 · 2 小時前</div>
+                    </div>
+                    <button class="text-gray-500">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                </div>
+                
+                <!-- 帖子內容 -->
+                <div class="px-4 pb-2">
+                    <p class="mb-3">分享我最近完成的客廳設計，北歐風格搭配溫暖的木質元素，讓空間既簡約又溫馨。</p>
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="客廳設計" class="rounded-lg w-full h-32 object-cover">
+                        <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="廚房設計" class="rounded-lg w-full h-32 object-cover">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="餐廳設計" class="rounded-lg w-full h-32 object-cover">
+                        <div class="relative rounded-lg w-full h-32 bg-gray-100 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="臥室設計" class="w-full h-full object-cover rounded-lg">
+                            <div class="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center text-white font-bold">
+                                +2
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mb-3">
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs">北歐風格</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs">客廳設計</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs">木質元素</span>
+                    </div>
+                </div>
+                
+                <!-- 帖子互動 -->
+                <div class="flex border-t border-gray-100 text-gray-500">
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-heart mr-2"></i>
+                        <span>128</span>
+                    </button>
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-comment mr-2"></i>
+                        <span>36</span>
+                    </button>
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-bookmark mr-2"></i>
+                        <span>收藏</span>
+                    </button>
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-share-square mr-2"></i>
+                        <span>分享</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 帖子 2 -->
+            <div class="card mb-6">
+                <!-- 帖子頭部 -->
+                <div class="flex items-center p-4">
+                    <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="用戶頭像" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium">王大明</div>
+                        <div class="text-xs text-gray-500">現代風格設計師 · 昨天</div>
+                    </div>
+                    <button class="text-gray-500">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                </div>
+                
+                <!-- 帖子內容 -->
+                <div class="px-4 pb-2">
+                    <p class="mb-3">這是我最新設計的工作室，採用現代風格，注重功能性與美學的平衡。大量使用玻璃和金屬元素，創造出開闊明亮的空間感。</p>
+                    <div class="mb-3">
+                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="工作室設計" class="rounded-lg w-full h-48 object-cover">
+                    </div>
+                    <div class="flex gap-2 mb-3">
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs">現代風格</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs">工作室</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs">開放空間</span>
+                    </div>
+                </div>
+                
+                <!-- 帖子互動 -->
+                <div class="flex border-t border-gray-100 text-gray-500">
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-heart mr-2"></i>
+                        <span>96</span>
+                    </button>
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-comment mr-2"></i>
+                        <span>24</span>
+                    </button>
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-bookmark mr-2"></i>
+                        <span>收藏</span>
+                    </button>
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-share-square mr-2"></i>
+                        <span>分享</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 帖子 3 -->
+            <div class="card mb-6">
+                <!-- 帖子頭部 -->
+                <div class="flex items-center p-4">
+                    <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="用戶頭像" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium">陳雅婷</div>
+                        <div class="text-xs text-gray-500">工業風格設計師 · 3 天前</div>
+                    </div>
+                    <button class="text-gray-500">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                </div>
+                
+                <!-- 帖子內容 -->
+                <div class="px-4 pb-2">
+                    <p class="mb-3">工業風格咖啡廳設計完成！裸露的磚牆、管道和金屬元素，創造出粗獷而有個性的空間。</p>
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="咖啡廳設計 1" class="rounded-lg w-full h-40 object-cover">
+                        <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="咖啡廳設計 2" class="rounded-lg w-full h-40 object-cover">
+                    </div>
+                    <div class="flex gap-2 mb-3">
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs">工業風格</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs">咖啡廳</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs">商業空間</span>
+                    </div>
+                </div>
+                
+                <!-- 帖子互動 -->
+                <div class="flex border-t border-gray-100 text-gray-500">
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-heart mr-2"></i>
+                        <span>156</span>
+                    </button>
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-comment mr-2"></i>
+                        <span>42</span>
+                    </button>
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-bookmark mr-2"></i>
+                        <span>收藏</span>
+                    </button>
+                    <button class="flex-1 py-3 flex items-center justify-center">
+                        <i class="far fa-share-square mr-2"></i>
+                        <span>分享</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 加載更多 -->
+            <div class="flex justify-center mt-6 mb-4">
+                <button class="btn btn-secondary">
+                    <i class="fas fa-spinner mr-2"></i>
+                    加載更多
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </a>
+        <a href="explore.html" class="tab-item">
+            <i class="fas fa-compass"></i>
+            <span>探索</span>
+        </a>
+        <a href="design-tool.html" class="tab-item">
+            <i class="fas fa-pencil-ruler"></i>
+            <span>設計</span>
+        </a>
+        <a href="community.html" class="tab-item active">
+            <i class="fas fa-users"></i>
+            <span>社區</span>
+        </a>
+        <a href="profile.html" class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+</body>
+</html>

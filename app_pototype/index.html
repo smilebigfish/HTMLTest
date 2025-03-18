@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>室內設計互動應用 - 原型</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background-color: #f5f5f7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .prototype-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background-color: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            margin: 0 auto;
+            border: 10px solid #1a1a1a;
+        }
+        .phone-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .screen-label {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #1a1a1a;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-gray-900 text-white p-6">
+        <h1 class="text-3xl font-bold">室內設計互動應用 - 原型展示</h1>
+        <p class="mt-2">這是一個室內設計應用程式的高保真原型，模擬 iPhone 15 Pro 的尺寸和外觀。</p>
+    </header>
+
+    <div class="prototype-container">
+        <div>
+            <div class="phone-frame">
+                <div class="notch"></div>
+                <iframe src="home.html" title="首頁"></iframe>
+            </div>
+            <div class="screen-label">首頁</div>
+        </div>
+        
+        <div>
+            <div class="phone-frame">
+                <div class="notch"></div>
+                <iframe src="explore.html" title="探索頁"></iframe>
+            </div>
+            <div class="screen-label">探索頁</div>
+        </div>
+        
+        <div>
+            <div class="phone-frame">
+                <div class="notch"></div>
+                <iframe src="design-tool.html" title="設計工具頁"></iframe>
+            </div>
+            <div class="screen-label">設計工具頁</div>
+        </div>
+        
+        <div>
+            <div class="phone-frame">
+                <div class="notch"></div>
+                <iframe src="ar-preview.html" title="AR 預覽頁"></iframe>
+            </div>
+            <div class="screen-label">AR 預覽頁</div>
+        </div>
+        
+        <div>
+            <div class="phone-frame">
+                <div class="notch"></div>
+                <iframe src="designers.html" title="設計師頁"></iframe>
+            </div>
+            <div class="screen-label">設計師頁</div>
+        </div>
+        
+        <div>
+            <div class="phone-frame">
+                <div class="notch"></div>
+                <iframe src="shop.html" title="商城頁"></iframe>
+            </div>
+            <div class="screen-label">商城頁</div>
+        </div>
+        
+        <div>
+            <div class="phone-frame">
+                <div class="notch"></div>
+                <iframe src="community.html" title="社區頁"></iframe>
+            </div>
+            <div class="screen-label">社區頁</div>
+        </div>
+        
+        <div>
+            <div class="phone-frame">
+                <div class="notch"></div>
+                <iframe src="profile.html" title="個人資料頁"></iframe>
+            </div>
+            <div class="screen-label">個人資料頁</div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-white p-6 mt-10">
+        <p>© 2023 室內設計互動應用 - 原型展示</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>室內設計互動平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <!-- 狀態列 -->
+    <div class="status-bar bg-white dark:bg-gray-800 py-1 px-4 flex justify-between items-center text-xs border-b border-gray-200 dark:border-gray-700">
+        <div>10:30</div>
+        <div class="flex space-x-2">
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 導航欄 -->
+    <div id="navbar-container"></div>
+
+    <!-- 主要內容區域 -->
+    <main class="container mx-auto p-4">
+        <iframe id="content-frame" src="home.html" class="w-full min-h-screen border-none"></iframe>
+    </main>
+
+    <!-- 底部導航 -->
+    <div id="footer-container" class="fixed bottom-0 left-0 right-0"></div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+        // 載入共用組件
+        document.addEventListener('DOMContentLoaded', function() {
+            // 載入導航欄
+            fetch('components/navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                });
+            
+            // 載入頁腳
+            fetch('components/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                });
+        });
+
+        // 頁面切換函數
+        function navigateTo(page) {
+            document.getElementById('content-frame').src = page;
+        }
+    </script>
+</body>
+</html> 

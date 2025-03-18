@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁 - 室內設計互動應用</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- iOS 狀態列 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <span>9:41</span>
+        </div>
+        <div class="status-bar-center">首頁</div>
+        <div class="status-bar-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi ml-2"></i>
+            <i class="fas fa-battery-full ml-2"></i>
+        </div>
+    </div>
+
+    <!-- 主要內容 -->
+    <div class="container">
+        <!-- 歡迎區域 -->
+        <div class="section">
+            <h1 class="text-2xl font-bold mb-2">嗨，設計愛好者</h1>
+            <p class="text-gray-600">讓我們開始打造您夢想中的空間吧！</p>
+        </div>
+
+        <!-- 搜索欄 -->
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="搜尋設計靈感、家具或設計師">
+        </div>
+
+        <!-- 快速操作 -->
+        <div class="section">
+            <div class="grid-3">
+                <div class="bg-blue-50 rounded-xl p-4 flex flex-col items-center justify-center">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fas fa-magic text-blue-500"></i>
+                    </div>
+                    <span class="text-sm font-medium">AI 設計</span>
+                </div>
+                <div class="bg-green-50 rounded-xl p-4 flex flex-col items-center justify-center">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fas fa-camera text-green-500"></i>
+                    </div>
+                    <span class="text-sm font-medium">AR 預覽</span>
+                </div>
+                <div class="bg-purple-50 rounded-xl p-4 flex flex-col items-center justify-center">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fas fa-ruler-combined text-purple-500"></i>
+                    </div>
+                    <span class="text-sm font-medium">測量工具</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 熱門設計 -->
+        <div class="section">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="section-title">熱門設計</h2>
+                <a href="#" class="text-blue-500 font-medium">查看全部</a>
+            </div>
+            <div class="overflow-x-auto">
+                <div class="flex gap-4" style="width: max-content;">
+                    <div class="card" style="width: 280px;">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="北歐風客廳" class="card-image">
+                        <div class="card-content">
+                            <h3 class="card-title">北歐風格客廳</h3>
+                            <p class="card-subtitle">簡約而溫馨的空間設計</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-sm text-gray-500">4.5 (128)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 280px;">
+                        <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="現代風格廚房" class="card-image">
+                        <div class="card-content">
+                            <h3 class="card-title">現代風格廚房</h3>
+                            <p class="card-subtitle">功能與美學的完美結合</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-sm text-gray-500">4.0 (96)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 280px;">
+                        <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="工業風臥室" class="card-image">
+                        <div class="card-content">
+                            <h3 class="card-title">工業風格臥室</h3>
+                            <p class="card-subtitle">原始而有個性的休息空間</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-sm text-gray-500">5.0 (64)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 設計風格 -->
+        <div class="section">
+            <h2 class="section-title">探索設計風格</h2>
+            <div class="grid">
+                <div class="relative rounded-xl overflow-hidden h-40">
+                    <img src="https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="北歐風格" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                        <span class="text-white font-medium">北歐風格</span>
+                    </div>
+                </div>
+                <div class="relative rounded-xl overflow-hidden h-40">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="現代風格" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                        <span class="text-white font-medium">現代風格</span>
+                    </div>
+                </div>
+                <div class="relative rounded-xl overflow-hidden h-40">
+                    <img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="工業風格" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                        <span class="text-white font-medium">工業風格</span>
+                    </div>
+                </div>
+                <div class="relative rounded-xl overflow-hidden h-40">
+                    <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="日式風格" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                        <span class="text-white font-medium">日式風格</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 推薦設計師 -->
+        <div class="section">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="section-title">推薦設計師</h2>
+                <a href="#" class="text-blue-500 font-medium">查看全部</a>
+            </div>
+            <div class="overflow-x-auto">
+                <div class="flex gap-4" style="width: max-content;">
+                    <div class="flex flex-col items-center" style="width: 100px;">
+                        <div class="w-16 h-16 rounded-full overflow-hidden mb-2">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-medium text-sm">林美玲</span>
+                        <span class="text-xs text-gray-500">北歐風格專家</span>
+                    </div>
+                    <div class="flex flex-col items-center" style="width: 100px;">
+                        <div class="w-16 h-16 rounded-full overflow-hidden mb-2">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-medium text-sm">王大明</span>
+                        <span class="text-xs text-gray-500">現代風格專家</span>
+                    </div>
+                    <div class="flex flex-col items-center" style="width: 100px;">
+                        <div class="w-16 h-16 rounded-full overflow-hidden mb-2">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-medium text-sm">陳雅婷</span>
+                        <span class="text-xs text-gray-500">工業風格專家</span>
+                    </div>
+                    <div class="flex flex-col items-center" style="width: 100px;">
+                        <div class="w-16 h-16 rounded-full overflow-hidden mb-2">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-medium text-sm">張志偉</span>
+                        <span class="text-xs text-gray-500">日式風格專家</span>
+                    </div>
+                    <div class="flex flex-col items-center" style="width: 100px;">
+                        <div class="w-16 h-16 rounded-full overflow-hidden mb-2">
+                            <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-medium text-sm">李佳穎</span>
+                        <span class="text-xs text-gray-500">混搭風格專家</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item active">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </a>
+        <a href="explore.html" class="tab-item">
+            <i class="fas fa-compass"></i>
+            <span>探索</span>
+        </a>
+        <a href="design-tool.html" class="tab-item">
+            <i class="fas fa-pencil-ruler"></i>
+            <span>設計</span>
+        </a>
+        <a href="community.html" class="tab-item">
+            <i class="fas fa-users"></i>
+            <span>社區</span>
+        </a>
+        <a href="profile.html" class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+</body>
+</html>

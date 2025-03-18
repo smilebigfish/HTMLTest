@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人專案 - 室內設計互動平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 page-transition">
+    <!-- 主要內容 -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- 頁面標題與操作 -->
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold mb-2">我的專案</h1>
+                <p class="text-gray-600 dark:text-gray-400">管理您的室內設計專案</p>
+            </div>
+            <div class="mt-4 md:mt-0">
+                <button class="btn-primary flex items-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    <span>新增專案</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 專案過濾與搜尋 -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <!-- 搜尋框 -->
+                <div class="relative mb-4 md:mb-0 md:w-1/3">
+                    <input type="text" placeholder="搜尋專案..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                
+                <!-- 過濾選項 -->
+                <div class="flex flex-wrap gap-2">
+                    <select class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        <option value="all">所有專案</option>
+                        <option value="active">進行中</option>
+                        <option value="completed">已完成</option>
+                        <option value="archived">已封存</option>
+                    </select>
+                    
+                    <select class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        <option value="newest">最新優先</option>
+                        <option value="oldest">最舊優先</option>
+                        <option value="name">名稱排序</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 專案列表 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- 專案卡片 1 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="我的客廳設計" class="w-full h-48 object-cover">
+                    <div class="absolute top-2 right-2 flex space-x-2">
+                        <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-md text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-md text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    <div class="absolute bottom-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">進行中</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold mb-2">我的客廳設計</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">北歐風格客廳設計，包含沙發、茶几和電視櫃的擺設</p>
+                    <div class="flex justify-between items-center">
+                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                            <i class="far fa-calendar-alt mr-1"></i>
+                            <span>更新於 2023/05/15</span>
+                        </div>
+                        <button class="text-indigo-600 dark:text-indigo-400 hover:underline text-sm font-medium">
+                            繼續編輯
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 專案卡片 2 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="主臥室改造" class="w-full h-48 object-cover">
+                    <div class="absolute top-2 right-2 flex space-x-2">
+                        <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-md text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-md text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    <div class="absolute bottom-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">已完成</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold mb-2">主臥室改造</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">現代風格臥室設計，包含床頭櫃、衣櫃和梳妝台的擺設</p>
+                    <div class="flex justify-between items-center">
+                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                            <i class="far fa-calendar-alt mr-1"></i>
+                            <span>更新於 2023/04/20</span>
+                        </div>
+                        <button class="text-indigo-600 dark:text-indigo-400 hover:underline text-sm font-medium">
+                            查看詳情
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 專案卡片 3 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1556911220-bda9f7f37446?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="廚房規劃" class="w-full h-48 object-cover">
+                    <div class="absolute top-2 right-2 flex space-x-2">
+                        <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-md text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-md text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    <div class="absolute bottom-2 left-2 bg-gray-500 text-white text-xs px-2 py-1 rounded">草稿</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold mb-2">廚房規劃</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">工業風廚房設計，包含中島、廚具和餐桌的擺設</p>
+                    <div class="flex justify-between items-center">
+                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                            <i class="far fa-calendar-alt mr-1"></i>
+                            <span>更新於 2023/05/10</span>
+                        </div>
+                        <button class="text-indigo-600 dark:text-indigo-400 hover:underline text-sm font-medium">
+                            繼續編輯
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 新增專案卡片 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover-card border-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-col items-center justify-center h-80 cursor-pointer">
+                <div class="text-gray-400 dark:text-gray-500 mb-4">
+                    <i class="fas fa-plus-circle text-5xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-400">新增專案</h3>
+                <p class="text-gray-500 dark:text-gray-500 text-sm text-center mt-2 px-6">
+                    開始一個新的室內設計專案
+                </p>
+            </div>
+        </div>
+
+        <!-- 最近活動 -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+            <h2 class="text-xl font-bold mb-4">最近活動</h2>
+            <div class="space-y-4">
+                <!-- 活動項目 1 -->
+                <div class="flex items-start">
+                    <div class="bg-indigo-100 dark:bg-indigo-900 rounded-full p-2 mr-4">
+                        <i class="fas fa-edit text-indigo-600 dark:text-indigo-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-800 dark:text-gray-200">您編輯了 <span class="font-medium">我的客廳設計</span> 專案</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">2023/05/15 14:30</p>
+                    </div>
+                </div>
+                
+                <!-- 活動項目 2 -->
+                <div class="flex items-start">
+                    <div class="bg-green-100 dark:bg-green-900 rounded-full p-2 mr-4">
+                        <i class="fas fa-check text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-800 dark:text-gray-200">您完成了 <span class="font-medium">主臥室改造</span> 專案</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">2023/04/20 09:15</p>
+                    </div>
+                </div>
+                
+                <!-- 活動項目 3 -->
+                <div class="flex items-start">
+                    <div class="bg-blue-100 dark:bg-blue-900 rounded-full p-2 mr-4">
+                        <i class="fas fa-plus text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-800 dark:text-gray-200">您創建了 <span class="font-medium">廚房規劃</span> 專案</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">2023/05/10 16:45</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 專案統計 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">專案總數</h3>
+                    <div class="bg-indigo-100 dark:bg-indigo-900 rounded-full p-2">
+                        <i class="fas fa-folder text-indigo-600 dark:text-indigo-400"></i>
+                    </div>
+                </div>
+                <p class="text-3xl font-bold">3</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">較上個月 <span class="text-green-500">+1</span></p>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">進行中</h3>
+                    <div class="bg-green-100 dark:bg-green-900 rounded-full p-2">
+                        <i class="fas fa-spinner text-green-600 dark:text-green-400"></i>
+                    </div>
+                </div>
+                <p class="text-3xl font-bold">1</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">較上個月 <span class="text-red-500">-1</span></p>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">已完成</h3>
+                    <div class="bg-blue-100 dark:bg-blue-900 rounded-full p-2">
+                        <i class="fas fa-check-circle text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                </div>
+                <p class="text-3xl font-bold">1</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">較上個月 <span class="text-green-500">+1</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html> 

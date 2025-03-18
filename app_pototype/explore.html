@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>探索 - 室內設計互動應用</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- iOS 狀態列 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <span>9:41</span>
+        </div>
+        <div class="status-bar-center">探索</div>
+        <div class="status-bar-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi ml-2"></i>
+            <i class="fas fa-battery-full ml-2"></i>
+        </div>
+    </div>
+
+    <!-- 主要內容 -->
+    <div class="container">
+        <!-- 搜索欄 -->
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="搜尋設計靈感、風格或空間">
+        </div>
+
+        <!-- 分類選擇器 -->
+        <div class="segmented-control mb-6">
+            <div class="segment active">全部</div>
+            <div class="segment">客廳</div>
+            <div class="segment">臥室</div>
+            <div class="segment">廚房</div>
+            <div class="segment">浴室</div>
+        </div>
+
+        <!-- 篩選器 -->
+        <div class="flex gap-2 mb-6 overflow-x-auto py-1">
+            <div class="px-4 py-2 bg-gray-100 rounded-full text-sm whitespace-nowrap flex items-center">
+                <i class="fas fa-filter mr-2 text-gray-500"></i>
+                <span>篩選</span>
+            </div>
+            <div class="px-4 py-2 bg-gray-100 rounded-full text-sm whitespace-nowrap">北歐風格</div>
+            <div class="px-4 py-2 bg-gray-100 rounded-full text-sm whitespace-nowrap">現代風格</div>
+            <div class="px-4 py-2 bg-gray-100 rounded-full text-sm whitespace-nowrap">工業風格</div>
+            <div class="px-4 py-2 bg-gray-100 rounded-full text-sm whitespace-nowrap">日式風格</div>
+            <div class="px-4 py-2 bg-gray-100 rounded-full text-sm whitespace-nowrap">美式風格</div>
+        </div>
+
+        <!-- 瀏覽內容 - 瀑布流佈局 -->
+        <div class="grid grid-cols-2 gap-4">
+            <!-- 第一列 -->
+            <div>
+                <div class="card mb-4">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="現代客廳" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">現代簡約客廳</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="w-6 h-6 rounded-full overflow-hidden mr-2">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                            </div>
+                            <span class="text-xs text-gray-500">林美玲</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="北歐風格臥室" class="card-image" style="height: 250px;">
+                    <div class="card-content">
+                        <h3 class="card-title">北歐風格臥室</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="w-6 h-6 rounded-full overflow-hidden mr-2">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                            </div>
+                            <span class="text-xs text-gray-500">王大明</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="日式風格客廳" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">日式風格客廳</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="w-6 h-6 rounded-full overflow-hidden mr-2">
+                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                            </div>
+                            <span class="text-xs text-gray-500">張志偉</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第二列 -->
+            <div>
+                <div class="card mb-4">
+                    <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="現代廚房" class="card-image" style="height: 280px;">
+                    <div class="card-content">
+                        <h3 class="card-title">現代風格廚房</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="w-6 h-6 rounded-full overflow-hidden mr-2">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                            </div>
+                            <span class="text-xs text-gray-500">陳雅婷</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="工業風格書房" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">工業風格書房</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="w-6 h-6 rounded-full overflow-hidden mr-2">
+                                <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                            </div>
+                            <span class="text-xs text-gray-500">李佳穎</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="日式風格臥室" class="card-image" style="height: 230px;">
+                    <div class="card-content">
+                        <h3 class="card-title">日式風格臥室</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="w-6 h-6 rounded-full overflow-hidden mr-2">
+                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="設計師照片" class="w-full h-full object-cover">
+                            </div>
+                            <span class="text-xs text-gray-500">張志偉</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 加載更多 -->
+        <div class="flex justify-center mt-6 mb-4">
+            <button class="btn btn-secondary">
+                <i class="fas fa-spinner mr-2"></i>
+                加載更多
+            </button>
+        </div>
+    </div>
+
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </a>
+        <a href="explore.html" class="tab-item active">
+            <i class="fas fa-compass"></i>
+            <span>探索</span>
+        </a>
+        <a href="design-tool.html" class="tab-item">
+            <i class="fas fa-pencil-ruler"></i>
+            <span>設計</span>
+        </a>
+        <a href="community.html" class="tab-item">
+            <i class="fas fa-users"></i>
+            <span>社區</span>
+        </a>
+        <a href="profile.html" class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+</body>
+</html>

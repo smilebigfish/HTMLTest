@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設計工具 - 室內設計互動平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <style>
+        .design-canvas {
+            min-height: 500px;
+            background-color: #f9fafb;
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="10" height="10" fill="%23f3f4f6"/><rect x="10" y="10" width="10" height="10" fill="%23f3f4f6"/></svg>');
+            background-size: 20px 20px;
+        }
+        
+        .dark .design-canvas {
+            background-color: #1f2937;
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="10" height="10" fill="%23374151"/><rect x="10" y="10" width="10" height="10" fill="%23374151"/></svg>');
+        }
+        
+        .furniture-item {
+            cursor: move;
+            transition: all 0.2s ease;
+        }
+        
+        .furniture-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .color-swatch {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .color-swatch:hover {
+            transform: scale(1.2);
+        }
+        
+        .material-swatch {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.2s ease;
+        }
+        
+        .material-swatch:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 page-transition">
+    <!-- 主要內容 -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- 頁面標題與操作 -->
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold mb-2">設計工具</h1>
+                <p class="text-gray-600 dark:text-gray-400">創建和編輯您的室內設計</p>
+            </div>
+            <div class="mt-4 md:mt-0 flex space-x-3">
+                <button class="btn-primary flex items-center">
+                    <i class="fas fa-save mr-2"></i>
+                    <span>儲存設計</span>
+                </button>
+                <button class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium py-2 px-4 rounded-lg transition duration-300 flex items-center">
+                    <i class="fas fa-share-alt mr-2"></i>
+                    <span>分享</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 設計工具主區域 -->
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- 左側工具面板 -->
+            <div class="w-full lg:w-64 bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold mb-3">工具</h2>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-lg text-center">
+                            <i class="fas fa-arrows-alt text-indigo-600 dark:text-indigo-400"></i>
+                            <p class="text-xs mt-1">移動</p>
+                        </button>
+                        <button class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-lg text-center">
+                            <i class="fas fa-expand-arrows-alt text-indigo-600 dark:text-indigo-400"></i>
+                            <p class="text-xs mt-1">縮放</p>
+                        </button>
+                        <button class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-lg text-center">
+                            <i class="fas fa-sync text-indigo-600 dark:text-indigo-400"></i>
+                            <p class="text-xs mt-1">旋轉</p>
+                        </button>
+                        <button class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-lg text-center">
+                            <i class="fas fa-paint-brush text-indigo-600 dark:text-indigo-400"></i>
+                            <p class="text-xs mt-1">上色</p>
+                        </button>
+                        <button class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-lg text-center">
+                            <i class="fas fa-trash-alt text-indigo-600 dark:text-indigo-400"></i>
+                            <p class="text-xs mt-1">刪除</p>
+                        </button>
+                        <button class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-lg text-center">
+                            <i class="fas fa-undo text-indigo-600 dark:text-indigo-400"></i>
+                            <p class="text-xs mt-1">復原</p>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold mb-3">家具</h2>
+                    <div class="space-y-2 max-h-48 overflow-y-auto pr-2">
+                        <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg flex items-center furniture-item">
+                            <img src="https://via.placeholder.com/40" alt="沙發" class="mr-3 rounded">
+                            <span>沙發</span>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg flex items-center furniture-item">
+                            <img src="https://via.placeholder.com/40" alt="茶几" class="mr-3 rounded">
+                            <span>茶几</span>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg flex items-center furniture-item">
+                            <img src="https://via.placeholder.com/40" alt="電視櫃" class="mr-3 rounded">
+                            <span>電視櫃</span>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg flex items-center furniture-item">
+                            <img src="https://via.placeholder.com/40" alt="餐桌" class="mr-3 rounded">
+                            <span>餐桌</span>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg flex items-center furniture-item">
+                            <img src="https://via.placeholder.com/40" alt="椅子" class="mr-3 rounded">
+                            <span>椅子</span>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg flex items-center furniture-item">
+                            <img src="https://via.placeholder.com/40" alt="床" class="mr-3 rounded">
+                            <span>床</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold mb-3">顏色</h2>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="color-swatch bg-white border border-gray-300"></div>
+                        <div class="color-swatch bg-gray-200"></div>
+                        <div class="color-swatch bg-gray-500"></div>
+                        <div class="color-swatch bg-gray-900"></div>
+                        <div class="color-swatch bg-red-500"></div>
+                        <div class="color-swatch bg-yellow-500"></div>
+                        <div class="color-swatch bg-green-500"></div>
+                        <div class="color-swatch bg-blue-500"></div>
+                        <div class="color-swatch bg-indigo-500"></div>
+                        <div class="color-swatch bg-purple-500"></div>
+                        <div class="color-swatch bg-pink-500"></div>
+                        <div class="color-swatch bg-amber-700"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 class="text-lg font-semibold mb-3">材質</h2>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="material-swatch" style="background-image: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                        <div class="material-swatch" style="background-image: url('https://images.unsplash.com/photo-1557268038-9c4d7d2a7671?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                        <div class="material-swatch" style="background-image: url('https://images.unsplash.com/photo-1583248369069-9d91f1640fe6?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                        <div class="material-swatch" style="background-image: url('https://images.unsplash.com/photo-1597696929736-6d13bed8e6a8?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                        <div class="material-swatch" style="background-image: url('https://images.unsplash.com/photo-1580745294621-26c6873c38e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                        <div class="material-swatch" style="background-image: url('https://images.unsplash.com/photo-1559304822-9eb2813c9844?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 中央設計畫布 -->
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                <div class="border-b border-gray-200 dark:border-gray-700 p-3 flex justify-between items-center">
+                    <div class="flex space-x-2">
+                        <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <select class="px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm">
+                            <option value="living">客廳</option>
+                            <option value="bedroom">臥室</option>
+                            <option value="kitchen">廚房</option>
+                            <option value="bathroom">浴室</option>
+                            <option value="office">辦公室</option>
+                        </select>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-ruler-combined"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="design-canvas p-4 relative">
+                    <!-- 示例家具 -->
+                    <div id="sofa" class="absolute top-40 left-40 w-64 h-24 bg-blue-200 dark:bg-blue-800 rounded-lg shadow-md cursor-move" draggable="true">
+                        <div class="absolute inset-0 flex items-center justify-center">沙發</div>
+                    </div>
+                    
+                    <div id="table" class="absolute top-80 left-60 w-32 h-32 bg-amber-200 dark:bg-amber-800 rounded-lg shadow-md cursor-move" draggable="true">
+                        <div class="absolute inset-0 flex items-center justify-center">茶几</div>
+                    </div>
+                    
+                    <div id="tv-stand" class="absolute top-40 left-200 w-48 h-16 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md cursor-move" draggable="true">
+                        <div class="absolute inset-0 flex items-center justify-center">電視櫃</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右側屬性面板 -->
+            <div class="w-full lg:w-64 bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
+                <h2 class="text-lg font-semibold mb-4">屬性</h2>
+                
+                <div class="mb-6">
+                    <h3 class="font-medium mb-2">選中物件</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">沙發</p>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">位置</label>
+                            <div class="flex space-x-2">
+                                <div class="flex-1">
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">X</label>
+                                    <input type="number" value="40" class="w-full px-2 py-1 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                </div>
+                                <div class="flex-1">
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">Y</label>
+                                    <input type="number" value="40" class="w-full px-2 py-1 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">尺寸</label>
+                            <div class="flex space-x-2">
+                                <div class="flex-1">
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">寬</label>
+                                    <input type="number" value="64" class="w-full px-2 py-1 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                </div>
+                                <div class="flex-1">
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">高</label>
+                                    <input type="number" value="24" class="w-full px-2 py-1 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">旋轉</label>
+                            <input type="range" min="0" max="360" value="0" class="w-full">
+                            <div class="text-right text-xs text-gray-500 dark:text-gray-400">0°</div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">顏色</label>
+                            <div class="flex flex-wrap gap-1">
+                                <div class="color-swatch bg-blue-200 border border-blue-300"></div>
+                                <div class="color-swatch bg-blue-300"></div>
+                                <div class="color-swatch bg-blue-400"></div>
+                                <div class="color-swatch bg-blue-500"></div>
+                                <div class="color-swatch bg-blue-600"></div>
+                                <div class="color-swatch bg-blue-700"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-medium mb-2">專案資訊</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">名稱</label>
+                            <input type="text" value="我的客廳設計" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">尺寸</label>
+                            <div class="flex space-x-2">
+                                <div class="flex-1">
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">寬</label>
+                                    <div class="flex items-center">
+                                        <input type="number" value="400" class="w-full px-2 py-1 rounded-l border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-600 border border-l-0 border-gray-300 dark:border-gray-700 rounded-r">cm</span>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">長</label>
+                                    <div class="flex items-center">
+                                        <input type="number" value="500" class="w-full px-2 py-1 rounded-l border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-600 border border-l-0 border-gray-300 dark:border-gray-700 rounded-r">cm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部工具列 -->
+        <div class="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-md p-3 flex justify-between items-center">
+            <div class="flex space-x-4">
+                <button class="flex items-center text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                    <i class="fas fa-eye mr-1"></i>
+                    <span>預覽</span>
+                </button>
+                <button class="flex items-center text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                    <i class="fas fa-camera mr-1"></i>
+                    <span>截圖</span>
+                </button>
+                <button class="flex items-center text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                    <i class="fas fa-file-export mr-1"></i>
+                    <span>匯出</span>
+                </button>
+            </div>
+            
+            <div class="text-sm text-gray-500 dark:text-gray-400">
+                上次儲存: 2023/05/15 15:30
+            </div>
+            
+            <div class="flex space-x-2">
+                <button class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-lg transition duration-300">
+                    取消
+                </button>
+                <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded-lg transition duration-300">
+                    儲存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+        // 簡單的拖曳功能示範
+        document.addEventListener('DOMContentLoaded', function() {
+            const draggableElements = document.querySelectorAll('[draggable="true"]');
+            let activeElement = null;
+            let initialX, initialY;
+            let currentX, currentY;
+            let xOffset = 0, yOffset = 0;
+            
+            draggableElements.forEach(element => {
+                element.addEventListener('mousedown', dragStart);
+                element.addEventListener('mouseup', dragEnd);
+                element.addEventListener('mousemove', drag);
+                
+                element.addEventListener('click', function() {
+                    // 選中元素時更新屬性面板
+                    document.querySelectorAll('[draggable="true"]').forEach(el => {
+                        el.classList.remove('ring-2', 'ring-indigo-500');
+                    });
+                    this.classList.add('ring-2', 'ring-indigo-500');
+                });
+            });
+            
+            function dragStart(e) {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+                
+                if (e.target === this || this.contains(e.target)) {
+                    activeElement = this;
+                }
+            }
+            
+            function dragEnd(e) {
+                initialX = currentX;
+                initialY = currentY;
+                activeElement = null;
+            }
+            
+            function drag(e) {
+                if (activeElement) {
+                    e.preventDefault();
+                    
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    xOffset = currentX;
+                    yOffset = currentY;
+                    
+                    setTranslate(currentX, currentY, activeElement);
+                }
+            }
+            
+            function setTranslate(xPos, yPos, el) {
+                el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+            }
+        });
+    </script>
+</body>
+</html> 

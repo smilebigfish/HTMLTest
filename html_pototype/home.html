@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁 - 室內設計互動平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 page-transition">
+    <!-- 主要內容 -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- 英雄區塊 -->
+        <section class="relative rounded-2xl overflow-hidden mb-12">
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 opacity-90"></div>
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80" alt="室內設計" class="w-full h-96 object-cover">
+            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">打造您夢想的居家空間</h1>
+                <p class="text-xl text-white mb-8 max-w-2xl">使用我們的互動設計工具，輕鬆創建專業級的室內設計方案</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#" data-nav-link data-target="design-tool.html" class="btn-primary text-center">開始設計</a>
+                    <a href="#" data-nav-link data-target="explore.html" class="bg-white text-indigo-600 hover:bg-gray-100 font-medium py-2 px-4 rounded-lg transition duration-300 text-center">探索設計</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 特色區塊 -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">我們的特色</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover-card">
+                    <div class="text-indigo-600 dark:text-indigo-400 mb-4">
+                        <i class="fas fa-paint-brush text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">專業設計工具</h3>
+                    <p class="text-gray-600 dark:text-gray-400">使用我們直覺的設計工具，輕鬆調整顏色、材質和佈局，無需專業技能。</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover-card">
+                    <div class="text-indigo-600 dark:text-indigo-400 mb-4">
+                        <i class="fas fa-cubes text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">豐富素材庫</h3>
+                    <p class="text-gray-600 dark:text-gray-400">數千種家具、裝飾和材質選項，讓您的設計靈感無限延伸。</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover-card">
+                    <div class="text-indigo-600 dark:text-indigo-400 mb-4">
+                        <i class="fas fa-cloud-upload-alt text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">雲端儲存</h3>
+                    <p class="text-gray-600 dark:text-gray-400">所有設計方案自動儲存在雲端，隨時隨地存取和編輯您的專案。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 熱門設計 -->
+        <section class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">熱門設計</h2>
+                <a href="#" data-nav-link data-target="explore.html" class="text-indigo-600 dark:text-indigo-400 hover:underline">查看全部 <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 設計卡片 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover-card">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="北歐風客廳" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">北歐風客廳</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">簡約而溫馨的北歐風格，適合小家庭</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="設計師" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">林設計師</span>
+                            </div>
+                            <div class="flex items-center text-amber-500">
+                                <i class="fas fa-star"></i>
+                                <span class="ml-1 text-sm">4.9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 設計卡片 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover-card">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="現代風臥室" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">現代風臥室</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">簡潔俐落的現代風格，打造舒適睡眠空間</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="設計師" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">王設計師</span>
+                            </div>
+                            <div class="flex items-center text-amber-500">
+                                <i class="fas fa-star"></i>
+                                <span class="ml-1 text-sm">4.8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 設計卡片 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover-card">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="工業風廚房" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">工業風廚房</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">結合實用性與美感的工業風廚房設計</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="設計師" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">陳設計師</span>
+                            </div>
+                            <div class="flex items-center text-amber-500">
+                                <i class="fas fa-star"></i>
+                                <span class="ml-1 text-sm">4.7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 用戶評價 -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">用戶評價</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 評價 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="用戶頭像" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">李小姐</h4>
+                            <div class="flex text-amber-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">"這個平台太棒了！我完全沒有設計經驗，但是使用這個工具後，我成功地規劃了我的新家。介面非常直覺，推薦給所有想要自己設計家居的人！"</p>
+                </div>
+                
+                <!-- 評價 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="用戶頭像" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">張先生</h4>
+                            <div class="flex text-amber-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">"作為一名室內設計師，我發現這個平台非常實用。它幫助我快速向客戶展示設計概念，素材庫也非常豐富。唯一的建議是希望能增加更多的自定義選項。"</p>
+                </div>
+                
+                <!-- 評價 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="用戶頭像" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">黃小姐</h4>
+                            <div class="flex text-amber-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">"我用這個平台設計了我的新公寓，結果比我想像的還要好！雲端儲存功能非常方便，我可以在不同的設備上繼續我的設計。強烈推薦給所有想要裝修的人！"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 訂閱區塊 -->
+        <section class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-center text-white">
+            <h2 class="text-3xl font-bold mb-4">獲取最新設計靈感</h2>
+            <p class="mb-6 max-w-2xl mx-auto">訂閱我們的電子報，獲取最新的設計趨勢、技巧和獨家優惠</p>
+            <div class="flex flex-col sm:flex-row justify-center max-w-md mx-auto">
+                <input type="email" placeholder="您的電子郵件" class="px-4 py-2 rounded-lg sm:rounded-r-none mb-2 sm:mb-0 w-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                <button class="bg-white text-indigo-600 hover:bg-gray-100 font-medium px-6 py-2 rounded-lg sm:rounded-l-none transition duration-300">訂閱</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html> 

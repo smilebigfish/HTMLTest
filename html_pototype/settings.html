@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定 - 室內設計互動平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 page-transition">
+    <!-- 主要內容 -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- 頁面標題 -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold mb-2">設定</h1>
+            <p class="text-gray-600 dark:text-gray-400">管理您的帳戶和偏好設定</p>
+        </div>
+
+        <!-- 設定內容 -->
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- 左側選單 -->
+            <div class="w-full lg:w-64">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                    <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="用戶頭像" class="h-12 w-12 rounded-full mr-3">
+                            <div>
+                                <h3 class="font-semibold">王小明</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">premium@example.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="p-2">
+                        <a href="#profile" class="flex items-center px-4 py-3 rounded-lg bg-indigo-50 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-400">
+                            <i class="fas fa-user-circle w-5 mr-3"></i>
+                            <span>個人資料</span>
+                        </a>
+                        <a href="#account" class="flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-shield-alt w-5 mr-3"></i>
+                            <span>帳戶安全</span>
+                        </a>
+                        <a href="#appearance" class="flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-paint-brush w-5 mr-3"></i>
+                            <span>外觀設定</span>
+                        </a>
+                        <a href="#notifications" class="flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-bell w-5 mr-3"></i>
+                            <span>通知設定</span>
+                        </a>
+                        <a href="#billing" class="flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-credit-card w-5 mr-3"></i>
+                            <span>付款與訂閱</span>
+                        </a>
+                        <a href="#privacy" class="flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-lock w-5 mr-3"></i>
+                            <span>隱私設定</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- 右側設定內容 -->
+            <div class="flex-1">
+                <!-- 個人資料設定 -->
+                <div id="profile" class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6">
+                    <h2 class="text-xl font-bold mb-6">個人資料</h2>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-center mb-4">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="用戶頭像" class="h-20 w-20 rounded-full mr-4">
+                            <div>
+                                <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300 mb-2">
+                                    更換頭像
+                                </button>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">建議使用正方形圖片，至少 200x200 像素</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">姓名</label>
+                                <input type="text" value="王小明" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">用戶名稱</label>
+                                <input type="text" value="designlover" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">電子郵件</label>
+                                <input type="email" value="premium@example.com" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">電話號碼</label>
+                                <input type="tel" value="0912-345-678" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium mb-2">個人簡介</label>
+                            <textarea rows="4" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400">熱愛室內設計的愛好者，喜歡北歐風格和極簡主義設計。</textarea>
+                        </div>
+                        
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
+                                儲存變更
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- 外觀設定 -->
+                <div id="appearance" class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6">
+                    <h2 class="text-xl font-bold mb-6">外觀設定</h2>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-medium mb-3">主題</h3>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="theme" value="light" class="mr-2">
+                                <span>淺色模式</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="theme" value="dark" class="mr-2" checked>
+                                <span>深色模式</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="theme" value="system" class="mr-2">
+                                <span>跟隨系統</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-medium mb-3">主色調</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="color-option w-8 h-8 rounded-full bg-indigo-600 ring-2 ring-offset-2 ring-indigo-600 cursor-pointer"></div>
+                            <div class="color-option w-8 h-8 rounded-full bg-blue-600 cursor-pointer"></div>
+                            <div class="color-option w-8 h-8 rounded-full bg-green-600 cursor-pointer"></div>
+                            <div class="color-option w-8 h-8 rounded-full bg-amber-600 cursor-pointer"></div>
+                            <div class="color-option w-8 h-8 rounded-full bg-red-600 cursor-pointer"></div>
+                            <div class="color-option w-8 h-8 rounded-full bg-purple-600 cursor-pointer"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-medium mb-3">字體大小</h3>
+                        <div class="flex items-center">
+                            <span class="text-sm mr-3">A</span>
+                            <input type="range" min="1" max="5" value="3" class="w-full max-w-md">
+                            <span class="text-lg ml-3">A</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
+                            套用設定
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 通知設定 -->
+                <div id="notifications" class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-bold mb-6">通知設定</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between py-2 border-b border-gray-200 dark:border-gray-700">
+                            <div>
+                                <h3 class="font-medium">電子郵件通知</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">接收重要更新和活動的電子郵件</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer" checked>
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                            </label>
+                        </div>
+                        
+                        <div class="flex items-center justify-between py-2 border-b border-gray-200 dark:border-gray-700">
+                            <div>
+                                <h3 class="font-medium">專案更新</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">當您的專案有更新或評論時通知您</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer" checked>
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                            </label>
+                        </div>
+                        
+                        <div class="flex items-center justify-between py-2 border-b border-gray-200 dark:border-gray-700">
+                            <div>
+                                <h3 class="font-medium">新功能公告</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">接收有關新功能和改進的通知</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer" checked>
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                            </label>
+                        </div>
+                        
+                        <div class="flex items-center justify-between py-2 border-b border-gray-200 dark:border-gray-700">
+                            <div>
+                                <h3 class="font-medium">行銷訊息</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">接收促銷和優惠相關的訊息</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end mt-6">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
+                            儲存偏好設定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html> 

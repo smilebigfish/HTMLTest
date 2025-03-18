@@ -1,0 +1,105 @@
+/* 自定義樣式 */
+:root {
+    --primary-color: #4f46e5;
+    --secondary-color: #10b981;
+    --accent-color: #f59e0b;
+    --text-dark: #1f2937;
+    --text-light: #f9fafb;
+    --bg-light: #f9fafb;
+    --bg-dark: #111827;
+}
+
+/* 頁面過渡動畫 */
+.page-transition {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 卡片懸停效果 */
+.hover-card {
+    transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* 自定義按鈕樣式 */
+.btn-primary {
+    @apply bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300;
+}
+
+.btn-secondary {
+    @apply bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300;
+}
+
+.btn-accent {
+    @apply bg-amber-500 hover:bg-amber-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300;
+}
+
+/* 響應式設計調整 */
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+    
+    .mobile-padding {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none;
+    }
+}
+
+/* 暗色模式切換 */
+.dark-mode-toggle {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    color: var(--accent-color);
+}
+
+/* 自定義滾動條 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* iframe 樣式 */
+iframe {
+    transition: opacity 0.3s ease;
+}
+
+iframe.loading {
+    opacity: 0.5;
+}
+
+/* 狀態列樣式 */
+.status-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+} 
