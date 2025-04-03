@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>預算規劃 - 個人理財規劃平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #f8fafc;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .card {
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover {
+      background-color: #edf2f7;
+      border-radius: 0.5rem;
+    }
+    .nav-item.active {
+      background-color: #ebf4ff;
+      color: #3182ce;
+      border-radius: 0.5rem;
+    }
+    .budget-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #3182ce;
+      cursor: pointer;
+    }
+    .budget-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #3182ce;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="flex h-screen overflow-hidden">
+    <!-- 側邊導航 -->
+    <aside class="hidden md:flex md:flex-shrink-0">
+      <div class="flex flex-col w-64 border-r border-gray-200 bg-white">
+        <div class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
+          <div class="flex items-center flex-shrink-0 px-4 mb-5">
+            <span class="text-xl font-bold text-blue-600">財務管家</span>
+          </div>
+          <nav class="mt-5 flex-1 px-2 space-y-1">
+            <a href="home.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-home mr-3 text-gray-400"></i>
+              首頁總覽
+            </a>
+            <a href="expense.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-receipt mr-3 text-gray-400"></i>
+              記帳管理
+            </a>
+            <a href="budget.html" class="nav-item active flex items-center px-4 py-3 text-sm font-medium">
+              <i class="fas fa-wallet mr-3 text-blue-500"></i>
+              預算規劃
+            </a>
+            <a href="investment.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-chart-line mr-3 text-gray-400"></i>
+              投資追蹤
+            </a>
+            <a href="profile.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-user-circle mr-3 text-gray-400"></i>
+              個人設定
+            </a>
+          </nav>
+        </div>
+        <div class="flex-shrink-0 flex border-t border-gray-200 p-4">
+          <div class="flex items-center">
+            <div>
+              <img class="h-10 w-10 rounded-full" src="/placeholder.svg?height=40&width=40" alt="使用者頭像">
+            </div>
+            <div class="ml-3">
+              <p class="text-sm font-medium text-gray-700">王小明</p>
+              <p class="text-xs font-medium text-gray-500">查看個人資料</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 主要內容 -->
+    <div class="flex flex-col flex-1 overflow-hidden">
+      <!-- 頂部導航 -->
+      <header class="bg-white shadow-sm z-10">
+        <div class="px-4 sm:px-6 lg:px-8 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <button class="md:hidden mr-2 text-gray-500">
+                <i class="fas fa-bars"></i>
+              </button>
+              <h1 class="text-lg font-semibold text-gray-800">預算規劃</h1>
+            </div>
+            <div class="flex items-center">
+              <button class="p-2 text-gray-500 hover:text-gray-600">
+                <i class="fas fa-bell"></i>
+              </button>
+              <button class="ml-3 p-2 text-gray-500 hover:text-gray-600">
+                <i class="fas fa-cog"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 主要內容區域 -->
+      <main class="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-6 lg:p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- 左側：預算設定 -->
+          <div class="lg:col-span-1">
+            <div class="card bg-white rounded-lg shadow p-5 mb-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">預算設定</h3>
+              <form>
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="budget-month">
+                    預算月份
+                  </label>
+                  <select id="budget-month" name="budget-month" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                    <option value="2025-04">2025年 4月</option>
+                    <option value="2025-05">2025年 5月</option>
+                    <option value="2025-06">2025年 6月</option>
+                  </select>
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="total-budget">
+                    總預算
+                  </label>
+                  <div class="mt-1 relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <span class="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <input type="number" name="total-budget" id="total-budget" value="30000" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                  </div>
+                </div>
+
+                <div class="mb-6">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    預算分配
+                  </label>
+                  <div class="space-y-4">
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span class="text-sm text-gray-600">飲食</span>
+                        <span class="text-sm text-gray-600" id="food-budget-value">$8,000</span>
+                      </div>
+                      <input type="range" min="0" max="15000" value="8000" class="budget-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" id="food-budget">
+                    </div>
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span class="text-sm text-gray-600">交通</span>
+                        <span class="text-sm text-gray-600" id="transport-budget-value">$3,000</span>
+                      </div>
+                      <input type="range" min="0" max="10000" value="3000" class="budget-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" id="transport-budget">
+                    </div>
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span class="text-sm text-gray-600">娛樂</span>
+                        <span class="text-sm text-gray-600" id="entertainment-budget-value">$4,000</span>
+                      </div>
+                      <input type="range" min="0" max="10000" value="4000" class="budget-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" id="entertainment-budget">
+                    </div>
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span class="text-sm text-gray-600">購物</span>
+                        <span class="text-sm text-gray-600" id="shopping-budget-value">$5,000</span>
+                      </div>
+                      <input type="range" min="0" max="15000" value="5000" class="budget-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" id="shopping-budget">
+                    </div>
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span class="text-sm text-gray-600">其他</span>
+                        <span class="text-sm text-gray-600" id="other-budget-value">$10,000</span>
+                      </div>
+                      <input type="range" min="0" max="20000" value="10000" class="budget-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" id="other-budget">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-sm font-medium text-gray-700">已分配預算</span>
+                  <span class="text-sm font-medium text-blue-600" id="allocated-budget">$30,000</span>
+                </div>
+
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-sm font-medium text-gray-700">剩餘可分配</span>
+                  <span class="text-sm font-medium text-green-600" id="remaining-budget">$0</span>
+                </div>
+
+                <div class="flex justify-end">
+                  <button type="button" class="bg-gray-200 text-gray-700 py-2 px-4 rounded-md mr-2 hover:bg-gray-300 transition-colors">
+                    重置
+                  </button>
+                  <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                    儲存
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- 預算模板 -->
+            <div class="card bg-white rounded-lg shadow p-5">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">預算模板</h3>
+              <div class="space-y-3">
+                <button class="w-full flex justify-between items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div class="flex items-center">
+                    <i class="fas fa-bookmark text-blue-500 mr-3"></i>
+                    <span class="text-sm text-gray-700">基本生活預算</span>
+                  </div>
+                  <span class="text-sm text-gray-500">$25,000</span>
+                </button>
+                <button class="w-full flex justify-between items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div class="flex items-center">
+                    <i class="fas fa-bookmark text-green-500 mr-3"></i>
+                    <span class="text-sm text-gray-700">節省模式</span>
+                  </div>
+                  <span class="text-sm text-gray-500">$20,000</span>
+                </button>
+                <button class="w-full flex justify-between items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div class="flex items-center">
+                    <i class="fas fa-bookmark text-purple-500 mr-3"></i>
+                    <span class="text-sm text-gray-700">旅遊月預算</span>
+                  </div>
+                  <span class="text-sm text-gray-500">$40,000</span>
+                </button>
+                <button class="w-full flex justify-between items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div class="flex items-center">
+                    <i class="fas fa-plus text-gray-500 mr-3"></i>
+                    <span class="text-sm text-gray-700">新增模板</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側：預算分析 -->
+          <div class="lg:col-span-2">
+            <!-- 預算概覽 -->
+            <div class="card bg-white rounded-lg shadow p-5 mb-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">預算概覽</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-blue-50 rounded-lg p-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-600">總預算</span>
+                    <i class="fas fa-wallet text-blue-500"></i>
+                  </div>
+                  <p class="text-2xl font-bold text-gray-800">$30,000</p>
+                  <p class="text-xs text-gray-500 mt-1">2025年 4月</p>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-600">已使用</span>
+                    <i class="fas fa-money-bill-wave text-green-500"></i>
+                  </div>
+                  <p class="text-2xl font-bold text-gray-800">$12,540</p>
+                  <p class="text-xs text-gray-500 mt-1">佔總預算 41.8%</p>
+                </div>
+                <div class="bg-yellow-50 rounded-lg p-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-600">剩餘預算</span>
+                    <i class="fas fa-piggy-bank text-yellow-500"></i>
+                  </div>
+                  <p class="text-2xl font-bold text-gray-800">$17,460</p>
+                  <p class="text-xs text-gray-500 mt-1">剩餘 19 天</p>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="flex justify-between mb-1">
+                  <span class="text-sm font-medium text-gray-700">預算使用進度</span>
+                  <span class="text-sm font-medium text-gray-700">41.8%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                  <div class="bg-blue-600 h-2.5 rounded-full" style="width: 41.8%"></div>
+                </div>
+                <div class="flex justify-between mt-1">
+                  <span class="text-xs text-gray-500">$12,540 / $30,000</span>
+                  <span class="text-xs text-gray-500">本月已過 36.7%</span>
+                </div>
+              </div>
+              <div class="text-sm text-gray-600">
+                <p>根據目前的支出速度，您的預算使用率略高於時間進度。建議適度控制接下來的支出，以確保月底不會超支。</p>
+              </div>
+            </div>
+
+            <!-- 預算分配圖表 -->
+            <div class="card bg-white rounded-lg shadow p-5 mb-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">預算分配</h3>
+              <div class="h-64">
+                <canvas id="budgetAllocationChart"></canvas>
+              </div>
+            </div>
+
+            <!-- 類別預算使用情況 -->
+            <div class="card bg-white rounded-lg shadow p-5">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">類別預算使用情況</h3>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">飲食</span>
+                    <span class="text-sm font-medium text-gray-700">45%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+                  </div>
+                  <div class="flex justify-between mt-1">
+                    <span class="text-xs text-gray-500">$3,600 / $8,000</span>
+                    <span class="text-xs text-gray-500">正常</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">交通</span>
+                    <span class="text-sm font-medium text-red-600">75%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-red-500 h-2.5 rounded-full" style="width: 75%"></div>
+                  </div>
+                  <div class="flex justify-between mt-1">
+                    <span class="text-xs text-gray-500">$2,250 / $3,000</span>
+                    <span class="text-xs text-red-500">超出預期</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">娛樂</span>
+                    <span class="text-sm font-medium text-gray-700">30%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 30%"></div>
+                  </div>
+                  <div class="flex justify-between mt-1">
+                    <span class="text-xs text-gray-500">$1,200 / $4,000</span>
+                    <span class="text-xs text-green-500">低於預期</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">購物</span>
+                    <span class="text-sm font-medium text-gray-700">38%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 38%"></div>
+                  </div>
+                  <div class="flex justify-between mt-1">
+                    <span class="text-xs text-gray-500">$1,900 / $5,000</span>
+                    <span class="text-xs text-gray-500">正常</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">其他</span>
+                    <span class="text-sm font-medium text-gray-700">36%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 36%"></div>
+                  </div>
+                  <div class="flex justify-between mt-1">
+                    <span class="text-xs text-gray-500">$3,590 / $10,000</span>
+                    <span class="text-xs text-gray-500">正常</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-6 p-4 bg-yellow-50 rounded-lg">
+                <div class="flex items-start">
+                  <i class="fas fa-exclamation-circle text-yellow-500 mt-0.5 mr-2"></i>
+                  <div>
+                    <h4 class="text-sm font-medium text-gray-800">預算提醒</h4>
+                    <p class="text-sm text-gray-600 mt-1">您的交通預算已使用 75%，超出本月時間進度。建議接下來減少交通支出或調整預算分配。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // 預算分配圖表
+    const budgetCtx = document.getElementById('budgetAllocationChart').getContext('2d');
+    const budgetAllocationChart = new Chart(budgetCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['飲食', '交通', '娛樂', '購物', '其他'],
+        datasets: [{
+          data: [8000, 3000, 4000, 5000, 10000],
+          backgroundColor: [
+            '#4299e1', // 藍色
+            '#48bb78', // 綠色
+            '#ecc94b', // 黃色
+            '#ed8936', // 橙色
+            '#9f7aea'  // 紫色
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                const percentage = Math.round((value / total) * 100);
+                return `${label}: $${value} (${percentage}%)`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // 預算滑桿互動
+    const foodBudget = document.getElementById('food-budget');
+    const transportBudget = document.getElementById('transport-budget');
+    const entertainmentBudget = document.getElementById('entertainment-budget');
+    const shoppingBudget = document.getElementById('shopping-budget');
+    const otherBudget = document.getElementById('other-budget');
+    
+    const foodBudgetValue = document.getElementById('food-budget-value');
+    const transportBudgetValue = document.getElementById('transport-budget-value');
+    const entertainmentBudgetValue = document.getElementById('entertainment-budget-value');
+    const shoppingBudgetValue = document.getElementById('shopping-budget-value');
+    const otherBudgetValue = document.getElementById('other-budget-value');
+    
+    const allocatedBudget = document.getElementById('allocated-budget');
+    const remainingBudget = document.getElementById('remaining-budget');
+    const totalBudget = document.getElementById('total-budget');
+    
+    function updateBudgetValues() {
+      const food = parseInt(foodBudget.value);
+      const transport = parseInt(transportBudget.value);
+      const entertainment = parseInt(entertainmentBudget.value);
+      const shopping = parseInt(shoppingBudget.value);
+      const other = parseInt(otherBudget.value);
+      const total = parseInt(totalBudget.value);
+      
+      foodBudgetValue.textContent = `$${food.toLocaleString()}`;
+      transportBudgetValue.textContent = `$${transport.toLocaleString()}`;
+      entertainmentBudgetValue.textContent = `$${entertainment.toLocaleString()}`;
+      shoppingBudgetValue.textContent = `$${shopping.toLocaleString()}`;
+      otherBudgetValue.textContent = `$${other.toLocaleString()}`;
+      
+      const allocated = food + transport + entertainment + shopping + other;
+      allocatedBudget.textContent = `$${allocated.toLocaleString()}`;
+      
+      const remaining = total - allocated;
+      remainingBudget.textContent = `$${remaining.toLocaleString()}`;
+      
+      if (remaining < 0) {
+        remainingBudget.classList.remove('text-green-600');
+        remainingBudget.classList.add('text-red-600');
+      } else {
+        remainingBudget.classList.remove('text-red-600');
+        remainingBudget.classList.add('text-green-600');
+      }
+      
+      // 更新圖表
+      budgetAllocationChart.data.datasets[0].data = [food, transport, entertainment, shopping, other];
+      budgetAllocationChart.update();
+    }
+    
+    foodBudget.addEventListener('input', updateBudgetValues);
+    transportBudget.addEventListener('input', updateBudgetValues);
+    entertainmentBudget.addEventListener('input', updateBudgetValues);
+    shoppingBudget.addEventListener('input', updateBudgetValues);
+    otherBudget.addEventListener('input', updateBudgetValues);
+    totalBudget.addEventListener('input', updateBudgetValues);
+  </script>
+</body>
+</html>
+

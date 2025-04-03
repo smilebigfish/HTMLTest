@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>室內設計平台 - 設計模擬器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .tool-btn {
+            transition: all 0.2s ease;
+        }
+        .tool-btn:hover {
+            background-color: #f3f4f6;
+            transform: translateY(-2px);
+        }
+        .tool-btn.active {
+            background-color: #e0e7ff;
+            color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        .furniture-item {
+            transition: all 0.2s ease;
+            cursor: grab;
+        }
+        .furniture-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .furniture-item:active {
+            cursor: grabbing;
+        }
+        .canvas-area {
+            background-image: 
+                linear-gradient(#e5e7eb 1px, transparent 1px),
+                linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        /* 行動版選單動畫 */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.show {
+            transform: translateX(0);
+        }
+        /* 遮罩層 */
+        .backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .backdrop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        @media (max-width: 640px) {
+            .canvas-area {
+                height: calc(100vh - 12rem);
+            }
+            .tool-btn {
+                width: 2rem;
+                height: 2rem;
+                margin-bottom: 0.5rem;
+            }
+            .tool-btn i {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm relative z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-home text-indigo-600 text-2xl mr-2"></i>
+                        <span class="font-bold text-xl text-gray-800">InDesign</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            首頁
+                        </a>
+                        <a href="#" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            設計模擬器
+                        </a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            設計圖庫
+                        </a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            關於我們
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <button class="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="ml-3 relative">
+                        <div>
+                            <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+                                <img class="h-8 w-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=128&q=80" alt="User profile">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center sm:hidden">
+                    <button id="menuBtn" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 行動版選單 -->
+        <div id="mobileMenu" class="mobile-menu fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50 sm:hidden">
+            <div class="flex flex-col h-full">
+                <div class="p-4 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-home text-indigo-600 text-xl mr-2"></i>
+                            <span class="font-bold text-lg text-gray-800">InDesign</span>
+                        </div>
+                        <button id="closeMenu" class="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-1 px-4 py-6 space-y-4">
+                    <a href="#" class="block px-4 py-2 text-gray-500 hover:bg-gray-50 rounded-md">首頁</a>
+                    <a href="#" class="block px-4 py-2 text-indigo-600 bg-indigo-50 rounded-md">設計模擬器</a>
+                    <a href="#" class="block px-4 py-2 text-gray-500 hover:bg-gray-50 rounded-md">設計圖庫</a>
+                    <a href="#" class="block px-4 py-2 text-gray-500 hover:bg-gray-50 rounded-md">關於我們</a>
+                </div>
+                <div class="p-4 border-t border-gray-200">
+                    <div class="flex items-center">
+                        <img class="h-8 w-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=128&q=80" alt="User profile">
+                        <span class="ml-3 text-sm font-medium text-gray-700">使用者名稱</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 遮罩層 -->
+        <div id="backdrop" class="backdrop fixed inset-0 bg-black bg-opacity-50 z-40 sm:hidden"></div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex overflow-hidden">
+        <!-- Left Sidebar - Tools -->
+        <div class="w-16 bg-white border-r border-gray-200 flex flex-col items-center py-4 sm:py-4">
+            <button class="tool-btn active w-10 h-10 mb-4 rounded-lg border border-gray-200 flex items-center justify-center text-gray-700">
+                <i class="fas fa-vector-square"></i>
+            </button>
+            <button class="tool-btn w-10 h-10 mb-4 rounded-lg border border-gray-200 flex items-center justify-center text-gray-700">
+                <i class="fas fa-pen"></i>
+            </button>
+            <button class="tool-btn w-10 h-10 mb-4 rounded-lg border border-gray-200 flex items-center justify-center text-gray-700">
+                <i class="fas fa-ruler-combined"></i>
+            </button>
+            <button class="tool-btn w-10 h-10 mb-4 rounded-lg border border-gray-200 flex items-center justify-center text-gray-700">
+                <i class="fas fa-eraser"></i>
+            </button>
+            <button class="tool-btn w-10 h-10 mb-4 rounded-lg border border-gray-200 flex items-center justify-center text-gray-700">
+                <i class="fas fa-eye-dropper"></i>
+            </button>
+            <div class="flex-1"></div>
+            <button class="tool-btn w-10 h-10 mb-4 rounded-lg border border-gray-200 flex items-center justify-center text-gray-700">
+                <i class="fas fa-undo"></i>
+            </button>
+            <button class="tool-btn w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center text-gray-700">
+                <i class="fas fa-redo"></i>
+            </button>
+        </div>
+
+        <!-- Main Canvas Area -->
+        <div class="flex-1 flex flex-col">
+            <!-- Top Toolbar -->
+            <div class="h-12 bg-white border-b border-gray-200 flex items-center px-4 overflow-x-auto">
+                <div class="flex space-x-2 mr-6 shrink-0">
+                    <button class="px-3 py-1 text-sm bg-gray-100 rounded hover:bg-gray-200 text-gray-700">
+                        <i class="fas fa-save mr-1"></i> 儲存
+                    </button>
+                    <button class="px-3 py-1 text-sm bg-gray-100 rounded hover:bg-gray-200 text-gray-700">
+                        <i class="fas fa-share-alt mr-1"></i> 分享
+                    </button>
+                    <button class="px-3 py-1 text-sm bg-gray-100 rounded hover:bg-gray-200 text-gray-700">
+                        <i class="fas fa-download mr-1"></i> 匯出
+                    </button>
+                </div>
+                <div class="flex space-x-4 shrink-0">
+                    <div class="flex items-center">
+                        <span class="text-sm text-gray-600 mr-2">視角:</span>
+                        <select class="text-sm border border-gray-300 rounded px-2 py-1">
+                            <option>2D 平面圖</option>
+                            <option>3D 預覽</option>
+                            <option>第一人稱視角</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm text-gray-600 mr-2">比例:</span>
+                        <select class="text-sm border border-gray-300 rounded px-2 py-1">
+                            <option>1:50</option>
+                            <option>1:100</option>
+                            <option>1:200</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ml-auto flex items-center space-x-4 shrink-0">
+                    <button class="px-3 py-1 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                        <i class="fas fa-vr-cardboard mr-1"></i> 3D 預覽
+                    </button>
+                </div>
+            </div>
+
+            <!-- Canvas -->
+            <div class="flex-1 overflow-auto p-4 bg-gray-100">
+                <div class="canvas-area bg-white border border-gray-300 h-full rounded-lg shadow-sm relative">
+                    <!-- Sample Room Layout -->
+                    <div class="absolute top-20 left-20 w-96 h-64 border-2 border-gray-800"></div>
+                    <div class="absolute top-20 left-[28rem] w-48 h-64 border-2 border-gray-800"></div>
+                    <div class="absolute top-[21rem] left-20 w-[30rem] h-48 border-2 border-gray-800"></div>
+                    
+                    <!-- Sample Furniture -->
+                    <div class="absolute top-32 left-32 w-16 h-16 bg-indigo-200 rounded-full border border-indigo-400 cursor-move"></div>
+                    <div class="absolute top-40 left-64 w-32 h-20 bg-indigo-200 rounded border border-indigo-400 cursor-move"></div>
+                    <div class="absolute top-[23rem] left-32 w-64 h-24 bg-indigo-200 rounded border border-indigo-400 cursor-move"></div>
+                    <div class="absolute top-32 left-[30rem] w-24 h-24 bg-indigo-200 rounded border border-indigo-400 cursor-move"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar - Furniture & Properties -->
+        <div class="w-64 bg-white border-l border-gray-200 flex flex-col overflow-hidden">
+            <!-- Tabs -->
+            <div class="flex border-b border-gray-200">
+                <button class="flex-1 py-3 text-sm font-medium text-indigo-600 border-b-2 border-indigo-600">
+                    家具
+                </button>
+                <button class="flex-1 py-3 text-sm font-medium text-gray-500 hover:text-gray-700">
+                    材質
+                </button>
+                <button class="flex-1 py-3 text-sm font-medium text-gray-500 hover:text-gray-700">
+                    屬性
+                </button>
+            </div>
+
+            <!-- Furniture List -->
+            <div class="flex-1 overflow-auto p-4">
+                <div class="mb-4">
+                    <h3 class="text-sm font-medium text-gray-700 mb-2">客廳</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Sofa" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">沙發</span>
+                        </div>
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Coffee Table" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">茶几</span>
+                        </div>
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1595327656903-2f54e37ce09b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="TV Stand" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">電視櫃</span>
+                        </div>
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Armchair" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">扶手椅</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-sm font-medium text-gray-700 mb-2">臥室</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Bed" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">床</span>
+                        </div>
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1551298370-9d3d53740c72?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Nightstand" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">床頭櫃</span>
+                        </div>
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Wardrobe" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">衣櫃</span>
+                        </div>
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1588200618450-3a5b1d3b9aa5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Dresser" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">梳妝台</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-medium text-gray-700 mb-2">廚房</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1556911220-bda9f7f6b6b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Kitchen Cabinet" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">廚櫃</span>
+                        </div>
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Refrigerator" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">冰箱</span>
+                        </div>
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Stove" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">爐具</span>
+                        </div>
+                        <div class="furniture-item bg-white border border-gray-200 rounded p-2 flex flex-col items-center">
+                            <img src="https://images.unsplash.com/photo-1575994432237-3bcd2a88bc3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Dining Table" class="w-full h-16 object-cover rounded mb-1">
+                            <span class="text-xs text-gray-600">餐桌</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Properties Panel -->
+            <div class="border-t border-gray-200 p-4">
+                <h3 class="text-sm font-medium text-gray-700 mb-3">物件屬性</h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs text-gray-600 mb-1">尺寸</label>
+                        <div class="flex space-x-2">
+                            <div class="flex-1">
+                                <input type="text" value="120" class="w-full text-xs border border-gray-300 rounded px-2 py-1">
+                                <span class="text-xs text-gray-500">寬 (cm)</span>
+                            </div>
+                            <div class="flex-1">
+                                <input type="text" value="80" class="w-full text-xs border border-gray-300 rounded px-2 py-1">
+                                <span class="text-xs text-gray-500">深 (cm)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-600 mb-1">旋轉</label>
+                        <input type="range" min="0" max="360" value="0" class="w-full">
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>0°</span>
+                            <span>360°</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-600 mb-1">顏色</label>
+                        <div class="flex space-x-2">
+                            <button class="w-6 h-6 rounded-full bg-red-500 border-2 border-white shadow-sm"></button>
+                            <button class="w-6 h-6 rounded-full bg-blue-500 border-2 border-white shadow-sm"></button>
+                            <button class="w-6 h-6 rounded-full bg-green-500 border-2 border-white shadow-sm"></button>
+                            <button class="w-6 h-6 rounded-full bg-yellow-500 border-2 border-white shadow-sm"></button>
+                            <button class="w-6 h-6 rounded-full bg-purple-500 border-2 border-white shadow-sm"></button>
+                            <button class="w-6 h-6 rounded-full bg-gray-500 border-2 border-white shadow-sm"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 漢堡選單功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menuBtn');
+            const closeMenu = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const backdrop = document.getElementById('backdrop');
+
+            function toggleMenu() {
+                mobileMenu.classList.toggle('show');
+                backdrop.classList.toggle('show');
+                document.body.classList.toggle('overflow-hidden');
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            closeMenu.addEventListener('click', toggleMenu);
+            backdrop.addEventListener('click', toggleMenu);
+
+            // 處理視窗大小改變
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 640 && mobileMenu.classList.contains('show')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人理財規劃平台 - 原型預覽</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      background-color: #f0f4f8;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .device-frame {
+      border: 12px solid #2d3748;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .device-frame:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .device-header {
+      background-color: #2d3748;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+    }
+    .device-button {
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+    .device-title {
+      color: #a0aec0;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+    .tab {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .tab-active {
+      border-bottom-width: 2px;
+      border-color: #4f46e5;
+      color: #4f46e5;
+      font-weight: 600;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .mobile-frame {
+      width: 375px;
+      margin: 0 auto;
+    }
+    .desktop-frame {
+      height: 800px !important;
+      margin-bottom: 2rem;
+    }
+    .mobile-device-frame {
+      height: 720px !important;
+    }
+    .iframe-container {
+      height: calc(100% - 24px);
+      overflow: hidden;
+    }
+    .iframe-scroll {
+      width: 100%;
+      height: 100%;
+      border: none;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+  <header class="max-w-7xl mx-auto mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">個人理財規劃平台</h1>
+    <p class="text-gray-600">互動式網頁原型規格書 - 高擬真網頁應用原型</p>
+  </header>
+
+  <!-- Tabs -->
+  <div class="flex justify-center mb-8">
+    <div class="flex border-b border-gray-200 w-full md:w-1/2 justify-center">
+      <div class="tab tab-active py-3 px-6 text-center" data-tab="desktop">
+        <i class="fas fa-desktop mr-2"></i>網頁版
+      </div>
+      <div class="tab py-3 px-6 text-center" data-tab="mobile">
+        <i class="fas fa-mobile-alt mr-2"></i>行動版
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop Version -->
+  <div id="desktop-content" class="tab-content active max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 gap-8">
+      <!-- 首頁 -->
+      <div class="device-frame desktop-frame">
+        <div class="device-header">
+          <div class="device-button bg-red-500"></div>
+          <div class="device-button bg-yellow-500"></div>
+          <div class="device-button bg-green-500"></div>
+          <div class="device-title">首頁 - home.html</div>
+        </div>
+        <div class="iframe-container">
+          <iframe src="home.html" class="iframe-scroll"></iframe>
+        </div>
+      </div>
+
+      <!-- 記帳頁面 -->
+      <div class="device-frame desktop-frame">
+        <div class="device-header">
+          <div class="device-button bg-red-500"></div>
+          <div class="device-button bg-yellow-500"></div>
+          <div class="device-button bg-green-500"></div>
+          <div class="device-title">記帳 - expense.html</div>
+        </div>
+        <div class="iframe-container">
+          <iframe src="expense.html" class="iframe-scroll"></iframe>
+        </div>
+      </div>
+
+      <!-- 預算頁面 -->
+      <div class="device-frame desktop-frame">
+        <div class="device-header">
+          <div class="device-button bg-red-500"></div>
+          <div class="device-button bg-yellow-500"></div>
+          <div class="device-button bg-green-500"></div>
+          <div class="device-title">預算 - budget.html</div>
+        </div>
+        <div class="iframe-container">
+          <iframe src="budget.html" class="iframe-scroll"></iframe>
+        </div>
+      </div>
+
+      <!-- 投資頁面 -->
+      <div class="device-frame desktop-frame">
+        <div class="device-header">
+          <div class="device-button bg-red-500"></div>
+          <div class="device-button bg-yellow-500"></div>
+          <div class="device-button bg-green-500"></div>
+          <div class="device-title">投資 - investment.html</div>
+        </div>
+        <div class="iframe-container">
+          <iframe src="investment.html" class="iframe-scroll"></iframe>
+        </div>
+      </div>
+
+      <!-- 個人資料頁面 -->
+      <div class="device-frame desktop-frame">
+        <div class="device-header">
+          <div class="device-button bg-red-500"></div>
+          <div class="device-button bg-yellow-500"></div>
+          <div class="device-button bg-green-500"></div>
+          <div class="device-title">個人資料 - profile.html</div>
+        </div>
+        <div class="iframe-container">
+          <iframe src="profile.html" class="iframe-scroll"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Version -->
+  <div id="mobile-content" class="tab-content">
+    <div class="flex flex-wrap justify-center gap-8">
+      <!-- 首頁 -->
+      <div class="mobile-frame mb-8">
+        <div class="device-frame mobile-device-frame">
+          <div class="device-header">
+            <div class="device-button bg-red-500"></div>
+            <div class="device-button bg-yellow-500"></div>
+            <div class="device-button bg-green-500"></div>
+            <div class="device-title">首頁 - home.html</div>
+          </div>
+          <div class="iframe-container">
+            <iframe src="home.html" class="iframe-scroll"></iframe>
+          </div>
+        </div>
+        <p class="text-center text-gray-700 font-medium mt-2">首頁</p>
+      </div>
+
+      <!-- 記帳頁面 -->
+      <div class="mobile-frame mb-8">
+        <div class="device-frame mobile-device-frame">
+          <div class="device-header">
+            <div class="device-button bg-red-500"></div>
+            <div class="device-button bg-yellow-500"></div>
+            <div class="device-button bg-green-500"></div>
+            <div class="device-title">記帳 - expense.html</div>
+          </div>
+          <div class="iframe-container">
+            <iframe src="expense.html" class="iframe-scroll"></iframe>
+          </div>
+        </div>
+        <p class="text-center text-gray-700 font-medium mt-2">記帳</p>
+      </div>
+
+      <!-- 預算頁面 -->
+      <div class="mobile-frame mb-8">
+        <div class="device-frame mobile-device-frame">
+          <div class="device-header">
+            <div class="device-button bg-red-500"></div>
+            <div class="device-button bg-yellow-500"></div>
+            <div class="device-button bg-green-500"></div>
+            <div class="device-title">預算 - budget.html</div>
+          </div>
+          <div class="iframe-container">
+            <iframe src="budget.html" class="iframe-scroll"></iframe>
+          </div>
+        </div>
+        <p class="text-center text-gray-700 font-medium mt-2">預算</p>
+      </div>
+
+      <!-- 投資頁面 -->
+      <div class="mobile-frame mb-8">
+        <div class="device-frame mobile-device-frame">
+          <div class="device-header">
+            <div class="device-button bg-red-500"></div>
+            <div class="device-button bg-yellow-500"></div>
+            <div class="device-button bg-green-500"></div>
+            <div class="device-title">投資 - investment.html</div>
+          </div>
+          <div class="iframe-container">
+            <iframe src="investment.html" class="iframe-scroll"></iframe>
+          </div>
+        </div>
+        <p class="text-center text-gray-700 font-medium mt-2">投資</p>
+      </div>
+
+      <!-- 個人資料頁面 -->
+      <div class="mobile-frame mb-8">
+        <div class="device-frame mobile-device-frame">
+          <div class="device-header">
+            <div class="device-button bg-red-500"></div>
+            <div class="device-button bg-yellow-500"></div>
+            <div class="device-button bg-green-500"></div>
+            <div class="device-title">個人資料 - profile.html</div>
+          </div>
+          <div class="iframe-container">
+            <iframe src="profile.html" class="iframe-scroll"></iframe>
+          </div>
+        </div>
+        <p class="text-center text-gray-700 font-medium mt-2">個人資料</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="max-w-7xl mx-auto mt-12 text-center text-gray-600 text-sm">
+    <p>個人理財規劃平台原型 © 2025</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabs = document.querySelectorAll('.tab');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          tabs.forEach(t => t.classList.remove('tab-active'));
+          this.classList.add('tab-active');
+          
+          tabContents.forEach(content => {
+            content.classList.remove('active');
+          });
+          
+          const targetTab = this.getAttribute('data-tab');
+          document.getElementById(`${targetTab}-content`).classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+

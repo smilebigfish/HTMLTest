@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人設定 - 個人理財規劃平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      background-color: #f8fafc;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .card {
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover {
+      background-color: #edf2f7;
+      border-radius: 0.5rem;
+    }
+    .nav-item.active {
+      background-color: #ebf4ff;
+      color: #3182ce;
+      border-radius: 0.5rem;
+    }
+    .tab {
+      transition: all 0.2s ease;
+    }
+    .tab:hover {
+      background-color: #f7fafc;
+    }
+    .tab.active {
+      color: #3182ce;
+      border-bottom: 2px solid #3182ce;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="flex h-screen overflow-hidden">
+    <!-- 側邊導航 -->
+    <aside class="hidden md:flex md:flex-shrink-0">
+      <div class="flex flex-col w-64 border-r border-gray-200 bg-white">
+        <div class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
+          <div class="flex items-center flex-shrink-0 px-4 mb-5">
+            <span class="text-xl font-bold text-blue-600">財務管家</span>
+          </div>
+          <nav class="mt-5 flex-1 px-2 space-y-1">
+            <a href="home.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-home mr-3 text-gray-400"></i>
+              首頁總覽
+            </a>
+            <a href="expense.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-receipt mr-3 text-gray-400"></i>
+              記帳管理
+            </a>
+            <a href="budget.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-wallet mr-3 text-gray-400"></i>
+              預算規劃
+            </a>
+            <a href="investment.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-chart-line mr-3 text-gray-400"></i>
+              投資追蹤
+            </a>
+            <a href="profile.html" class="nav-item active flex items-center px-4 py-3 text-sm font-medium">
+              <i class="fas fa-user-circle mr-3 text-blue-500"></i>
+              個人設定
+            </a>
+          </nav>
+        </div>
+        <div class="flex-shrink-0 flex border-t border-gray-200 p-4">
+          <div class="flex items-center">
+            <div>
+              <img class="h-10 w-10 rounded-full" src="/placeholder.svg?height=40&width=40" alt="使用者頭像">
+            </div>
+            <div class="ml-3">
+              <p class="text-sm font-medium text-gray-700">王小明</p>
+              <p class="text-xs font-medium text-gray-500">查看個人資料</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 主要內容 -->
+    <div class="flex flex-col flex-1 overflow-hidden">
+      <!-- 頂部導航 -->
+      <header class="bg-white shadow-sm z-10">
+        <div class="px-4 sm:px-6 lg:px-8 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <button class="md:hidden mr-2 text-gray-500">
+                <i class="fas fa-bars"></i>
+              </button>
+              <h1 class="text-lg font-semibold text-gray-800">個人設定</h1>
+            </div>
+            <div class="flex items-center">
+              <button class="p-2 text-gray-500 hover:text-gray-600">
+                <i class="fas fa-bell"></i>
+              </button>
+              <button class="ml-3 p-2 text-gray-500 hover:text-gray-600">
+                <i class="fas fa-cog"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 主要內容區域 -->
+      <main class="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-6 lg:p-8">
+        <!-- 頁籤導航 -->
+        <div class="border-b border-gray-200 mb-6">
+          <div class="flex -mb-px">
+            <button class="tab active px-4 py-2 text-sm font-medium text-center">個人資料</button>
+            <button class="tab px-4 py-2 text-sm font-medium text-center text-gray-500">財務目標</button>
+            <button class="tab px-4 py-2 text-sm font-medium text-center text-gray-500">帳戶設定</button>
+            <button class="tab px-4 py-2 text-sm font-medium text-center text-gray-500">通知設定</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- 左側：個人資料 -->
+          <div class="lg:col-span-1">
+            <div class="card bg-white rounded-lg shadow p-5 mb-6">
+              <div class="flex flex-col items-center">
+                <div class="relative mb-4">
+                  <img class="h-32 w-32 rounded-full" src="/placeholder.svg?height=128&width=128" alt="使用者頭像">
+                  <button class="absolute bottom-0 right-0 bg-blue-600 text-white rounded-full p-2 shadow-md hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-camera"></i>
+                  </button>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800">王小明</h3>
+                <p class="text-sm text-gray-500">小資族 / 工程師</p>
+                <div class="flex mt-4 space-x-2">
+                  <button class="bg-blue-600 text-white py-1 px-3 rounded-md text-sm hover:bg-blue-700 transition-colors">
+                    編輯資料
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 帳戶安全 -->
+            <div class="card bg-white rounded-lg shadow p-5">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">帳戶安全</h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <p class="text-sm font-medium text-gray-700">電子郵件</p>
+                    <p class="text-sm text-gray-500">wang@example.com</p>
+                  </div>
+                  <button class="text-sm text-blue-600 hover:text-blue-800">
+                    變更
+                  </button>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <p class="text-sm font-medium text-gray-700">密碼</p>
+                    <p class="text-sm text-gray-500">上次更新：2025/01/15</p>
+                  </div>
+                  <button class="text-sm text-blue-600 hover:text-blue-800">
+                    變更
+                  </button>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <p class="text-sm font-medium text-gray-700">雙重驗證</p>
+                    <p class="text-sm text-gray-500">未啟用</p>
+                  </div>
+                  <button class="text-sm text-blue-600 hover:text-blue-800">
+                    啟用
+                  </button>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <p class="text-sm font-medium text-gray-700">登入裝置</p>
+                    <p class="text-sm text-gray-500">1 台裝置</p>
+                  </div>
+                  <button class="text-sm text-blue-600 hover:text-blue-800">
+                    管理
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側：詳細資料與目標 -->
+          <div class="lg:col-span-2">
+            <!-- 個人資料表單 -->
+            <div class="card bg-white rounded-lg shadow p-5 mb-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">個人資料</h3>
+              <form>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="first-name">
+                      姓氏
+                    </label>
+                    <input type="text" id="first-name" name="first-name" value="王" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="last-name">
+                      名字
+                    </label>
+                    <input type="text" id="last-name" name="last-name" value="小明" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="email">
+                    電子郵件
+                  </label>
+                  <input type="email" id="email" name="email" value="wang@example.com" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="phone">
+                    手機號碼
+                  </label>
+                  <input type="tel" id="phone" name="phone" value="0912-345-678" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="occupation">
+                    職業
+                  </label>
+                  <input type="text" id="occupation" name="occupation" value="軟體工程師" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="monthly-income">
+                    月收入
+                  </label>
+                  <div class="mt-1 relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <span class="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <input type="number" name="monthly-income" id="monthly-income" value="42500" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                  </div>
+                </div>
+
+                <div class="flex justify-end">
+                  <button type="button" class="bg-gray-200 text-gray-700 py-2 px-4 rounded-md mr-2 hover:bg-gray-300 transition-colors">
+                    取消
+                  </button>
+                  <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                    儲存變更
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- 財務目標 -->
+            <div class="card bg-white rounded-lg shadow p-5">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">財務目標</h3>
+                <button class="text-sm bg-blue-600 text-white py-1 px-3 rounded-md hover:bg-blue-700 transition-colors">
+                  新增目標
+                </button>
+              </div>
+              <div class="space-y-6">
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <div>
+                      <h4 class="text-md font-medium text-gray-800">旅遊基金</h4>
+                      <p class="text-sm text-gray-500">預計完成：2025/08</p>
+                    </div>
+                    <div class="flex space-x-2">
+                      <button class="text-blue-600 hover:text-blue-800">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="text-red-600 hover:text-red-800">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">目標金額：$50,000</span>
+                    <span class="text-sm font-medium text-gray-700">60%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 60%"></div>
+                  </div>
+                  <div class="flex justify-between mt-1">
+                    <span class="text-xs text-gray-500">已存：$30,000</span>
+                    <span class="text-xs text-gray-500">每月存入：$5,000</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <div>
+                      <h4 class="text-md font-medium text-gray-800">緊急備用金</h4>
+                      <p class="text-sm text-gray-500">預計完成：2025/05</p>
+                    </div>
+                    <div class="flex space-x-2">
+                      <button class="text-blue-600 hover:text-blue-800">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="text-red-600 hover:text-red-800">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">目標金額：$100,000</span>
+                    <span class="text-sm font-medium text-gray-700">85%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 85%"></div>
+                  </div>
+                  <div class="flex justify-between mt-1">
+                    <span class="text-xs text-gray-500">已存：$85,000</span>
+                    <span class="text-xs text-gray-500">每月存入：$7,500</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <div>
+                      <h4 class="text-md font-medium text-gray-800">購車基金</h4>
+                      <p class="text-sm text-gray-500">預計完成：2026/12</p>
+                    </div>
+                    <div class="flex space-x-2">
+                      <button class="text-blue-600 hover:text-blue-800">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="text-red-600 hover:text-red-800">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">目標金額：$600,000</span>
+                    <span class="text-sm font-medium text-gray-700">25%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 25%"></div>
+                  </div>
+                  <div class="flex justify-between mt-1">
+                    <span class="text-xs text-gray-500">已存：$150,000</span>
+                    <span class="text-xs text-gray-500">每月存入：$15,000</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
+

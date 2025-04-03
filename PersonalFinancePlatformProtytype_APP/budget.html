@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>預算規劃 - 個人理財規劃平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #F2F2F7;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      padding-top: 44px; /* 為狀態欄留出空間 */
+      padding-bottom: 83px; /* 為底部導航欄和home indicator留出空間 */
+    }
+    .ios-card {
+      background-color: #FFFFFF;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .ios-header {
+      position: fixed;
+      top: 44px; /* 狀態欄下方 */
+      left: 0;
+      right: 0;
+      height: 44px;
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+    }
+    .ios-tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 83px; /* 包含home indicator的高度 */
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 30px; /* 為home indicator留出空間 */
+      border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+    }
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 20%;
+      color: #8E8E93;
+    }
+    .tab-item.active {
+      color: #007AFF;
+    }
+    .tab-item i {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+    .tab-item span {
+      font-size: 10px;
+    }
+    /* 隱藏滾動條但保留功能 */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollable {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch; /* 增加iOS滑動慣性 */
+    }
+    .ios-list-item {
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+    }
+    .ios-list-item:last-child {
+      border-bottom: none;
+    }
+    .ios-progress-bar {
+      height: 6px;
+      background-color: #E9E9EB;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .ios-progress-value {
+      height: 100%;
+      border-radius: 3px;
+    }
+    .ios-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #E9E9EB;
+      outline: none;
+    }
+    .ios-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+    .ios-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+    /* 添加新的互動效果樣式 */
+    .interactive {
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .interactive:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+
+    .budget-card {
+      transition: all 0.3s ease;
+    }
+
+    .budget-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .ios-progress-bar {
+      position: relative;
+      overflow: visible;
+    }
+
+    .ios-progress-value {
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ios-progress-value::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translate(50%, -50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: inherit;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .ios-slider {
+      transition: all 0.2s ease;
+    }
+
+    .ios-slider::-webkit-slider-thumb {
+      transition: transform 0.2s ease;
+    }
+
+    .ios-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .budget-alert {
+      background: #FFD7D7;
+      border-left: 4px solid #FF3B30;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .category-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-right: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .category-badge:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <!-- iOS風格的頂部導航 -->
+  <div class="ios-header">
+    <h1 class="text-lg font-semibold">預算規劃</h1>
+    <div class="flex items-center space-x-4">
+      <button>
+        <i class="fas fa-cog text-gray-500"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 主要內容區域 -->
+  <div class="scrollable h-full pt-14 pb-4 px-4">
+    <!-- 預算概覽 -->
+    <div class="ios-card mb-4">
+      <div class="p-4 border-b border-gray-100">
+        <h3 class="text-md font-semibold text-gray-800 mb-3">預算概覽</h3>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="bg-blue-50 rounded-lg p-3">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-medium text-gray-600">總預算</span>
+              <i class="fas fa-wallet text-blue-500 text-xs"></i>
+            </div>
+            <p class="text-lg font-bold text-gray-800">$30,000</p>
+            <p class="text-xs text-gray-500">2025年 4月</p>
+          </div>
+          <div class="bg-green-50 rounded-lg p-3">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-medium text-gray-600">已使用</span>
+              <i class="fas fa-money-bill-wave text-green-500 text-xs"></i>
+            </div>
+            <p class="text-lg font-bold text-gray-800">$12,540</p>
+            <p class="text-xs text-gray-500">41.8%</p>
+          </div>
+          <div class="bg-yellow-50 rounded-lg p-3">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-medium text-gray-600">剩餘</span>
+              <i class="fas fa-piggy-bank text-yellow-500 text-xs"></i>
+            </div>
+            <p class="text-lg font-bold text-gray-800">$17,460</p>
+            <p class="text-xs text-gray-500">剩餘 19 天</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-4">
+        <div class="flex justify-between mb-1">
+          <span class="text-sm font-medium text-gray-700">預算使用進度</span>
+          <span class="text-sm font-medium text-gray-700">41.8%</span>
+        </div>
+        <div class="ios-progress-bar mb-1">
+          <div class="ios-progress-value bg-blue-500" style="width: 41.8%"></div>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-xs text-gray-500">$12,540 / $30,000</span>
+          <span class="text-xs text-gray-500">本月已過 36.7%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 預算分配 -->
+    <div class="ios-card mb-4">
+      <div class="p-4 border-b border-gray-100">
+        <h3 class="text-md font-semibold text-gray-800">預算分配</h3>
+      </div>
+      <div class="p-4">
+        <div class="h-48 mb-2">
+          <canvas id="budgetAllocationChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- 類別預算使用情況 -->
+    <div class="ios-card mb-4">
+      <div class="p-4 border-b border-gray-100">
+        <h3 class="text-md font-semibold text-gray-800">類別預算使用情況</h3>
+      </div>
+      
+      <div class="ios-list-item">
+        <div class="w-full">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm font-medium text-gray-700">飲食</span>
+            <span class="text-sm font-medium text-gray-700">45%</span>
+          </div>
+          <div class="ios-progress-bar mb-1">
+            <div class="ios-progress-value bg-blue-500" style="width: 45%"></div>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-xs text-gray-500">$3,600 / $8,000</span>
+            <span class="text-xs text-gray-500">正常</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ios-list-item">
+        <div class="w-full">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm font-medium text-gray-700">交通</span>
+            <span class="text-sm font-medium text-red-600">75%</span>
+          </div>
+          <div class="ios-progress-bar mb-1">
+            <div class="ios-progress-value bg-red-500" style="width: 75%"></div>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-xs text-gray-500">$2,250 / $3,000</span>
+            <span class="text-xs text-red-500">超出預期</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ios-list-item">
+        <div class="w-full">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm font-medium text-gray-700">娛樂</span>
+            <span class="text-sm font-medium text-gray-700">30%</span>
+          </div>
+          <div class="ios-progress-bar mb-1">
+            <div class="ios-progress-value bg-green-500" style="width: 30%"></div>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-xs text-gray-500">$1,200 / $4,000</span>
+            <span class="text-xs text-green-500">低於預期</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ios-list-item">
+        <div class="w-full">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm font-medium text-gray-700">購物</span>
+            <span class="text-sm font-medium text-gray-700">38%</span>
+          </div>
+          <div class="ios-progress-bar mb-1">
+            <div class="ios-progress-value bg-blue-500" style="width: 38%"></div>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-xs text-gray-500">$1,900 / $5,000</span>
+            <span class="text-xs text-gray-500">正常</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 預算設定 -->
+    <div class="ios-card mb-4">
+      <div class="p-4 border-b border-gray-100">
+        <h3 class="text-md font-semibold text-gray-800">預算設定</h3>
+      </div>
+      
+      <div class="ios-list-item">
+        <span class="text-sm text-gray-700">預算月份</span>
+        <div class="flex items-center">
+          <span class="text-sm text-gray-700">2025年 4月</span>
+          <i class="fas fa-chevron-right ml-2 text-gray-400 text-xs"></i>
+        </div>
+      </div>
+      
+      <div class="ios-list-item">
+        <span class="text-sm text-gray-700">總預算</span>
+        <span class="text-sm text-gray-700">$30,000</span>
+      </div>
+      
+      <div class="p-4">
+        <div class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-600">飲食</span>
+            <span class="text-sm text-gray-600" id="food-budget-value">$8,000</span>
+          </div>
+          <input type="range" min="0" max="15000" value="8000" class="ios-slider" id="food-budget">
+        </div>
+        
+        <div class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-600">交通</span>
+            <span class="text-sm text-gray-600" id="transport-budget-value">$3,000</span>
+          </div>
+          <input type="range" min="0" max="10000" value="3000" class="ios-slider" id="transport-budget">
+        </div>
+        
+        <div class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-600">娛樂</span>
+            <span class="text-sm text-gray-600" id="entertainment-budget-value">$4,000</span>
+          </div>
+          <input type="range" min="0" max="10000" value="4000" class="ios-slider" id="entertainment-budget">
+        </div>
+        
+        <div class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-600">購物</span>
+            <span class="text-sm text-gray-600" id="shopping-budget-value">$5,000</span>
+          </div>
+          <input type="range" min="0" max="15000" value="5000" class="ios-slider" id="shopping-budget">
+        </div>
+        
+        <div class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-600">其他</span>
+            <span class="text-sm text-gray-600" id="other-budget-value">$10,000</span>
+          </div>
+          <input type="range" min="0" max="20000" value="10000" class="ios-slider" id="other-budget">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- iOS風格的底部導航欄 -->
+  <div class="ios-tab-bar">
+    <a href="home.html" class="tab-item">
+      <i class="fas fa-home"></i>
+      <span>首頁</span>
+    </a>
+    <a href="expense.html" class="tab-item">
+      <i class="fas fa-receipt"></i>
+      <span>記帳</span>
+    </a>
+    <a href="budget.html" class="tab-item active">
+      <i class="fas fa-wallet"></i>
+      <span>預算</span>
+    </a>
+    <a href="investment.html" class="tab-item">
+      <i class="fas fa-chart-line"></i>
+      <span>投資</span>
+    </a>
+    <a href="profile.html" class="tab-item">
+      <i class="fas fa-user"></i>
+      <span>我的</span>
+    </a>
+  </div>
+
+  <script>
+    // 添加觸覺回饋
+    function addHapticFeedback() {
+      if ('vibrate' in navigator) {
+        navigator.vibrate(5);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 初始化預算分配圖表
+      const budgetCtx = document.getElementById('budgetAllocationChart').getContext('2d');
+      const budgetChart = new Chart(budgetCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['飲食', '交通', '娛樂', '購物', '其他'],
+          datasets: [{
+            data: [8000, 3000, 5000, 4000, 10000],
+            backgroundColor: [
+              '#007AFF',
+              '#FF3B30',
+              '#5856D6',
+              '#FF9500',
+              '#34C759'
+            ],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              onClick: (e, legendItem) => {
+                addHapticFeedback();
+              }
+            }
+          },
+          animation: {
+            animateScale: true,
+            animateRotate: true
+          }
+        }
+      });
+
+      // 初始化進度條動畫
+      const progressBars = document.querySelectorAll('.ios-progress-value');
+      progressBars.forEach(bar => {
+        const targetWidth = bar.style.width;
+        bar.style.width = '0';
+        setTimeout(() => {
+          bar.style.width = targetWidth;
+        }, 100);
+      });
+
+      // 添加預算卡片互動
+      const budgetCards = document.querySelectorAll('.ios-card');
+      budgetCards.forEach(card => {
+        card.classList.add('budget-card');
+        card.addEventListener('click', () => {
+          addHapticFeedback();
+        });
+      });
+
+      // 監控預算使用情況
+      function checkBudgetStatus() {
+        const budgetItems = document.querySelectorAll('.ios-list-item');
+        budgetItems.forEach(item => {
+          const progress = parseFloat(item.querySelector('.ios-progress-value').style.width);
+          const statusText = item.querySelector('.text-xs:last-child');
+          const progressValue = item.querySelector('.text-sm.font-medium:last-child');
+          
+          if (progress > 70) {
+            statusText.className = 'text-xs text-red-500';
+            statusText.textContent = '超出預期';
+            progressValue.className = 'text-sm font-medium text-red-600';
+            
+            // 添加警告提示
+            if (!item.querySelector('.budget-alert')) {
+              const alert = document.createElement('div');
+              alert.className = 'budget-alert';
+              alert.innerHTML = `
+                <div class="flex items-center">
+                  <i class="fas fa-exclamation-circle text-red-500 mr-2"></i>
+                  <span class="text-sm text-red-700">預算使用率偏高，建議控制支出</span>
+                </div>
+              `;
+              item.appendChild(alert);
+            }
+          }
+        });
+      }
+
+      // 定期檢查預算狀態
+      checkBudgetStatus();
+      setInterval(checkBudgetStatus, 60000);
+
+      // 添加設置按鈕互動
+      const settingsBtn = document.querySelector('.fa-cog').parentElement;
+      settingsBtn.addEventListener('click', () => {
+        addHapticFeedback();
+        // 這裡可以添加打開設置面板的邏輯
+      });
+
+      // 添加預算調整功能
+      const sliders = document.querySelectorAll('.ios-slider');
+      sliders.forEach(slider => {
+        slider.addEventListener('input', () => {
+          addHapticFeedback();
+          const value = slider.value;
+          const progressBar = slider.parentElement.querySelector('.ios-progress-value');
+          progressBar.style.width = `${value}%`;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+

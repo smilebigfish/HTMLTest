@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首頁 - 個人理財規劃平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #f8fafc;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .card {
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover {
+      background-color: #edf2f7;
+      border-radius: 0.5rem;
+    }
+    .nav-item.active {
+      background-color: #ebf4ff;
+      color: #3182ce;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="flex h-screen overflow-hidden">
+    <!-- 側邊導航 -->
+    <aside class="hidden md:flex md:flex-shrink-0">
+      <div class="flex flex-col w-64 border-r border-gray-200 bg-white">
+        <div class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
+          <div class="flex items-center flex-shrink-0 px-4 mb-5">
+            <span class="text-xl font-bold text-blue-600">財務管家</span>
+          </div>
+          <nav class="mt-5 flex-1 px-2 space-y-1">
+            <a href="home.html" class="nav-item active flex items-center px-4 py-3 text-sm font-medium">
+              <i class="fas fa-home mr-3 text-blue-500"></i>
+              首頁總覽
+            </a>
+            <a href="expense.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-receipt mr-3 text-gray-400"></i>
+              記帳管理
+            </a>
+            <a href="budget.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-wallet mr-3 text-gray-400"></i>
+              預算規劃
+            </a>
+            <a href="investment.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-chart-line mr-3 text-gray-400"></i>
+              投資追蹤
+            </a>
+            <a href="profile.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-user-circle mr-3 text-gray-400"></i>
+              個人設定
+            </a>
+          </nav>
+        </div>
+        <div class="flex-shrink-0 flex border-t border-gray-200 p-4">
+          <div class="flex items-center">
+            <div>
+              <img class="h-10 w-10 rounded-full" src="/placeholder.svg?height=40&width=40" alt="使用者頭像">
+            </div>
+            <div class="ml-3">
+              <p class="text-sm font-medium text-gray-700">王小明</p>
+              <p class="text-xs font-medium text-gray-500">查看個人資料</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 主要內容 -->
+    <div class="flex flex-col flex-1 overflow-hidden">
+      <!-- 頂部導航 -->
+      <header class="bg-white shadow-sm z-10">
+        <div class="px-4 sm:px-6 lg:px-8 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <button class="md:hidden mr-2 text-gray-500">
+                <i class="fas fa-bars"></i>
+              </button>
+              <h1 class="text-lg font-semibold text-gray-800">首頁總覽</h1>
+            </div>
+            <div class="flex items-center">
+              <button class="p-2 text-gray-500 hover:text-gray-600">
+                <i class="fas fa-bell"></i>
+              </button>
+              <button class="ml-3 p-2 text-gray-500 hover:text-gray-600">
+                <i class="fas fa-cog"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 主要內容區域 -->
+      <main class="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-6 lg:p-8">
+        <!-- 歡迎區塊 -->
+        <div class="mb-6">
+          <h2 class="text-2xl font-bold text-gray-800">您好，王小明</h2>
+          <p class="text-gray-600">今天是 2025 年 4 月 3 日，這是您的財務總覽</p>
+        </div>
+
+        <!-- 財務摘要卡片 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div class="card bg-white rounded-lg shadow p-5">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-blue-100 text-blue-500">
+                <i class="fas fa-wallet text-xl"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-500">本月支出</p>
+                <p class="text-xl font-semibold text-gray-800">$15,240</p>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div class="flex items-center">
+                <span class="text-sm text-red-500 flex items-center">
+                  <i class="fas fa-arrow-up mr-1"></i> 12%
+                </span>
+                <span class="text-sm text-gray-500 ml-2">相較上月</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card bg-white rounded-lg shadow p-5">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-green-100 text-green-500">
+                <i class="fas fa-dollar-sign text-xl"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-500">本月收入</p>
+                <p class="text-xl font-semibold text-gray-800">$42,500</p>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div class="flex items-center">
+                <span class="text-sm text-green-500 flex items-center">
+                  <i class="fas fa-arrow-up mr-1"></i> 5%
+                </span>
+                <span class="text-sm text-gray-500 ml-2">相較上月</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card bg-white rounded-lg shadow p-5">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-purple-100 text-purple-500">
+                <i class="fas fa-piggy-bank text-xl"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-500">本月儲蓄</p>
+                <p class="text-xl font-semibold text-gray-800">$27,260</p>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div class="flex items-center">
+                <span class="text-sm text-green-500 flex items-center">
+                  <i class="fas fa-arrow-up mr-1"></i> 8%
+                </span>
+                <span class="text-sm text-gray-500 ml-2">相較上月</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card bg-white rounded-lg shadow p-5">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-yellow-100 text-yellow-500">
+                <i class="fas fa-chart-pie text-xl"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-500">投資組合</p>
+                <p class="text-xl font-semibold text-gray-800">$156,780</p>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div class="flex items-center">
+                <span class="text-sm text-green-500 flex items-center">
+                  <i class="fas fa-arrow-up mr-1"></i> 3.2%
+                </span>
+                <span class="text-sm text-gray-500 ml-2">本月報酬</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 圖表區域 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <!-- 支出分類圖表 -->
+          <div class="card bg-white rounded-lg shadow p-5">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">支出分類</h3>
+            <div class="h-64">
+              <canvas id="expenseChart"></canvas>
+            </div>
+          </div>
+
+          <!-- 收支趨勢圖表 -->
+          <div class="card bg-white rounded-lg shadow p-5">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">收支趨勢</h3>
+            <div class="h-64">
+              <canvas id="trendChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 最近交易 -->
+        <div class="card bg-white rounded-lg shadow p-5 mb-8">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">最近交易</h3>
+            <a href="expense.html" class="text-sm text-blue-500 hover:text-blue-600">查看全部</a>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">日期</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">類別</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">描述</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">金額</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr class="hover:bg-gray-50 transition-colors">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025/04/02</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">收入</span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">四月薪資</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">+$42,500</td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition-colors">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025/04/01</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">支出</span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">房租</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">-$12,000</td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition-colors">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025/03/30</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">支出</span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">超市購物</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">-$1,540</td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition-colors">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025/03/28</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">支出</span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">餐廳聚餐</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">-$850</td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition-colors">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025/03/25</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">投資</span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">股票購買</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-500">-$5,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 財務目標 -->
+        <div class="card bg-white rounded-lg shadow p-5">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">財務目標</h3>
+            <a href="profile.html" class="text-sm text-blue-500 hover:text-blue-600">管理目標</a>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-sm font-medium text-gray-700">旅遊基金</span>
+                <span class="text-sm font-medium text-gray-700">60%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 60%"></div>
+              </div>
+              <div class="flex justify-between mt-1">
+                <span class="text-xs text-gray-500">$30,000 / $50,000</span>
+                <span class="text-xs text-gray-500">預計完成：2025/08</span>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-sm font-medium text-gray-700">緊急備用金</span>
+                <span class="text-sm font-medium text-gray-700">85%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-green-500 h-2.5 rounded-full" style="width: 85%"></div>
+              </div>
+              <div class="flex justify-between mt-1">
+                <span class="text-xs text-gray-500">$85,000 / $100,000</span>
+                <span class="text-xs text-gray-500">預計完成：2025/05</span>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-sm font-medium text-gray-700">購車基金</span>
+                <span class="text-sm font-medium text-gray-700">25%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 25%"></div>
+              </div>
+              <div class="flex justify-between mt-1">
+                <span class="text-xs text-gray-500">$150,000 / $600,000</span>
+                <span class="text-xs text-gray-500">預計完成：2026/12</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // 支出分類圖表
+    const expenseCtx = document.getElementById('expenseChart').getContext('2d');
+    const expenseChart = new Chart(expenseCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['住宿', '飲食', '交通', '娛樂', '購物', '其他'],
+        datasets: [{
+          data: [12000, 5240, 2500, 1800, 3200, 500],
+          backgroundColor: [
+            '#4299e1', // 藍色
+            '#48bb78', // 綠色
+            '#ecc94b', // 黃色
+            '#ed8936', // 橙色
+            '#9f7aea', // 紫色
+            '#cbd5e0'  // 灰色
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                return `${label}: $${value}`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // 收支趨勢圖表
+    const trendCtx = document.getElementById('trendChart').getContext('2d');
+    const trendChart = new Chart(trendCtx, {
+      type: 'line',
+      data: {
+        labels: ['11月', '12月', '1月', '2月', '3月', '4月'],
+        datasets: [
+          {
+            label: '收入',
+            data: [38000, 40000, 39500, 41000, 40500, 42500],
+            borderColor: '#48bb78',
+            backgroundColor: 'rgba(72, 187, 120, 0.1)',
+            fill: true,
+            tension: 0.4
+          },
+          {
+            label: '支出',
+            data: [18000, 22000, 14500, 16000, 13600, 15240],
+            borderColor: '#f56565',
+            backgroundColor: 'rgba(245, 101, 101, 0.1)',
+            fill: true,
+            tension: 0.4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return '$' + value;
+              }
+            }
+          }
+        },
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.dataset.label || '';
+                const value = context.raw || 0;
+                return `${label}: $${value}`;
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+

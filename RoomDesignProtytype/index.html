@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>室內設計平台 - 原型預覽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+        .browser-frame {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            background-color: #fff;
+        }
+        .browser-header {
+            background-color: #f1f3f4;
+            border-bottom: 1px solid #ddd;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+        }
+        .browser-dots {
+            display: flex;
+            gap: 6px;
+            margin-right: 12px;
+        }
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .browser-address {
+            background-color: #e9ecef;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 12px;
+            flex-grow: 1;
+            color: #555;
+        }
+        .iframe-container {
+            width: 100%;
+            height: calc(100% - 40px);
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .tab {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab.active {
+            border-bottom-width: 2px;
+            border-color: #4f46e5;
+            color: #4f46e5;
+            font-weight: 600;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .mobile-frame {
+            width: 375px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">室內設計平台 - 互動式原型預覽</h1>
+        
+        <!-- Tabs -->
+        <div class="flex justify-center mb-8">
+            <div class="flex border-b border-gray-200 w-full md:w-1/2 justify-center">
+                <div class="tab active py-3 px-6 text-center border-b-2 border-transparent" data-tab="desktop">
+                    <i class="fas fa-desktop mr-2"></i>網頁版
+                </div>
+                <div class="tab py-3 px-6 text-center border-b-2 border-transparent" data-tab="mobile">
+                    <i class="fas fa-mobile-alt mr-2"></i>行動版
+                </div>
+            </div>
+        </div>
+        
+        <!-- Desktop Version -->
+        <div id="desktop-content" class="tab-content active">
+            <div class="grid grid-cols-1 gap-8 mb-8">
+                <!-- Home Page -->
+                <div class="browser-frame h-[500px]">
+                    <div class="browser-header">
+                        <div class="browser-dots">
+                            <div class="browser-dot bg-red-500"></div>
+                            <div class="browser-dot bg-yellow-500"></div>
+                            <div class="browser-dot bg-green-500"></div>
+                        </div>
+                        <div class="browser-address">https://interior-design.example.com/home</div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="home.html" title="Home Page"></iframe>
+                    </div>
+                </div>
+                
+                <!-- Simulator Page -->
+                <div class="browser-frame h-[500px]">
+                    <div class="browser-header">
+                        <div class="browser-dots">
+                            <div class="browser-dot bg-red-500"></div>
+                            <div class="browser-dot bg-yellow-500"></div>
+                            <div class="browser-dot bg-green-500"></div>
+                        </div>
+                        <div class="browser-address">https://interior-design.example.com/simulator</div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="simulator.html" title="Simulator"></iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-8 mb-8">
+                <!-- Gallery Page -->
+                <div class="browser-frame h-[400px]">
+                    <div class="browser-header">
+                        <div class="browser-dots">
+                            <div class="browser-dot bg-red-500"></div>
+                            <div class="browser-dot bg-yellow-500"></div>
+                            <div class="browser-dot bg-green-500"></div>
+                        </div>
+                        <div class="browser-address">https://interior-design.example.com/gallery</div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="gallery.html" title="Gallery"></iframe>
+                    </div>
+                </div>
+                
+                <!-- Profile Page -->
+                <div class="browser-frame h-[400px]">
+                    <div class="browser-header">
+                        <div class="browser-dots">
+                            <div class="browser-dot bg-red-500"></div>
+                            <div class="browser-dot bg-yellow-500"></div>
+                            <div class="browser-dot bg-green-500"></div>
+                        </div>
+                        <div class="browser-address">https://interior-design.example.com/profile</div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="profile.html" title="Profile"></iframe>
+                    </div>
+                </div>
+                
+                <!-- Settings Page -->
+                <div class="browser-frame h-[400px]">
+                    <div class="browser-header">
+                        <div class="browser-dots">
+                            <div class="browser-dot bg-red-500"></div>
+                            <div class="browser-dot bg-yellow-500"></div>
+                            <div class="browser-dot bg-green-500"></div>
+                        </div>
+                        <div class="browser-address">https://interior-design.example.com/settings</div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="settings.html" title="Settings"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8">
+                <!-- About Page -->
+                <div class="browser-frame h-[500px]">
+                    <div class="browser-header">
+                        <div class="browser-dots">
+                            <div class="browser-dot bg-red-500"></div>
+                            <div class="browser-dot bg-yellow-500"></div>
+                            <div class="browser-dot bg-green-500"></div>
+                        </div>
+                        <div class="browser-address">https://interior-design.example.com/about</div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="about.html" title="About Us"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Version -->
+        <div id="mobile-content" class="tab-content">
+            <div class="flex flex-wrap justify-center gap-8">
+                <!-- Home Page -->
+                <div class="mobile-frame mb-8">
+                    <div class="browser-frame h-[600px] w-full">
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <div class="browser-dot bg-red-500"></div>
+                                <div class="browser-dot bg-yellow-500"></div>
+                                <div class="browser-dot bg-green-500"></div>
+                            </div>
+                            <div class="browser-address">https://interior-design.example.com/home</div>
+                        </div>
+                        <div class="iframe-container">
+                            <iframe src="home.html" title="Home Page Mobile"></iframe>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 font-medium mt-2">首頁</p>
+                </div>
+                
+                <!-- Simulator Page -->
+                <div class="mobile-frame mb-8">
+                    <div class="browser-frame h-[600px] w-full">
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <div class="browser-dot bg-red-500"></div>
+                                <div class="browser-dot bg-yellow-500"></div>
+                                <div class="browser-dot bg-green-500"></div>
+                            </div>
+                            <div class="browser-address">https://interior-design.example.com/simulator</div>
+                        </div>
+                        <div class="iframe-container">
+                            <iframe src="simulator.html" title="Simulator Mobile"></iframe>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 font-medium mt-2">設計模擬器</p>
+                </div>
+                
+                <!-- Gallery Page -->
+                <div class="mobile-frame mb-8">
+                    <div class="browser-frame h-[600px] w-full">
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <div class="browser-dot bg-red-500"></div>
+                                <div class="browser-dot bg-yellow-500"></div>
+                                <div class="browser-dot bg-green-500"></div>
+                            </div>
+                            <div class="browser-address">https://interior-design.example.com/gallery</div>
+                        </div>
+                        <div class="iframe-container">
+                            <iframe src="gallery.html" title="Gallery Mobile"></iframe>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 font-medium mt-2">設計圖庫</p>
+                </div>
+                
+                <!-- Profile Page -->
+                <div class="mobile-frame mb-8">
+                    <div class="browser-frame h-[600px] w-full">
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <div class="browser-dot bg-red-500"></div>
+                                <div class="browser-dot bg-yellow-500"></div>
+                                <div class="browser-dot bg-green-500"></div>
+                            </div>
+                            <div class="browser-address">https://interior-design.example.com/profile</div>
+                        </div>
+                        <div class="iframe-container">
+                            <iframe src="profile.html" title="Profile Mobile"></iframe>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 font-medium mt-2">個人資料</p>
+                </div>
+                
+                <!-- Settings Page -->
+                <div class="mobile-frame mb-8">
+                    <div class="browser-frame h-[600px] w-full">
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <div class="browser-dot bg-red-500"></div>
+                                <div class="browser-dot bg-yellow-500"></div>
+                                <div class="browser-dot bg-green-500"></div>
+                            </div>
+                            <div class="browser-address">https://interior-design.example.com/settings</div>
+                        </div>
+                        <div class="iframe-container">
+                            <iframe src="settings.html" title="Settings Mobile"></iframe>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 font-medium mt-2">設定</p>
+                </div>
+                
+                <!-- About Page -->
+                <div class="mobile-frame mb-8">
+                    <div class="browser-frame h-[600px] w-full">
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <div class="browser-dot bg-red-500"></div>
+                                <div class="browser-dot bg-yellow-500"></div>
+                                <div class="browser-dot bg-green-500"></div>
+                            </div>
+                            <div class="browser-address">https://interior-design.example.com/about</div>
+                        </div>
+                        <div class="iframe-container">
+                            <iframe src="about.html" title="About Us Mobile"></iframe>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 font-medium mt-2">關於我們</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to current tab
+                    this.classList.add('active');
+                    
+                    // Hide all tab contents
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Show the selected tab content
+                    const targetTab = this.getAttribute('data-tab');
+                    document.getElementById(`${targetTab}-content`).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

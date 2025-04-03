@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>室內設計平台 - 設計圖庫</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .filter-btn {
+            transition: all 0.2s ease;
+        }
+        .filter-btn:hover {
+            background-color: #f3f4f6;
+        }
+        .filter-btn.active {
+            background-color: #e0e7ff;
+            color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        /* 行動版選單動畫 */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.show {
+            transform: translateX(0);
+        }
+        /* 遮罩層 */
+        .backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .backdrop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm relative z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-home text-indigo-600 text-2xl mr-2"></i>
+                        <span class="font-bold text-xl text-gray-800">InDesign</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            首頁
+                        </a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            設計模擬器
+                        </a>
+                        <a href="#" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            設計圖庫
+                        </a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            關於我們
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <button class="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="ml-3 relative">
+                        <div>
+                            <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+                                <img class="h-8 w-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=128&q=80" alt="User profile">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center sm:hidden">
+                    <button id="menuBtn" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 行動版選單 -->
+        <div id="mobileMenu" class="mobile-menu fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50 sm:hidden">
+            <div class="flex flex-col h-full">
+                <div class="p-4 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-home text-indigo-600 text-xl mr-2"></i>
+                            <span class="font-bold text-lg text-gray-800">InDesign</span>
+                        </div>
+                        <button id="closeMenu" class="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-1 px-4 py-6 space-y-4">
+                    <a href="#" class="block px-4 py-2 text-gray-500 hover:bg-gray-50 rounded-md">首頁</a>
+                    <a href="#" class="block px-4 py-2 text-gray-500 hover:bg-gray-50 rounded-md">設計模擬器</a>
+                    <a href="#" class="block px-4 py-2 text-indigo-600 bg-indigo-50 rounded-md">設計圖庫</a>
+                    <a href="#" class="block px-4 py-2 text-gray-500 hover:bg-gray-50 rounded-md">關於我們</a>
+                </div>
+                <div class="p-4 border-t border-gray-200">
+                    <div class="flex items-center">
+                        <img class="h-8 w-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=128&q=80" alt="User profile">
+                        <span class="ml-3 text-sm font-medium text-gray-700">使用者名稱</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 遮罩層 -->
+        <div id="backdrop" class="backdrop fixed inset-0 bg-black bg-opacity-50 z-40 sm:hidden"></div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">設計圖庫</h1>
+                <p class="text-gray-600">探索專業設計師和社群用戶分享的室內設計作品</p>
+            </div>
+            <div class="mt-4 md:mt-0">
+                <div class="relative">
+                    <input type="text" placeholder="搜尋設計..." class="w-full md:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-8">
+            <div class="flex flex-wrap items-center">
+                <span class="text-sm font-medium text-gray-700 mr-4">篩選條件:</span>
+                <div class="flex flex-wrap gap-2">
+                    <button class="filter-btn active px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        全部
+                    </button>
+                    <button class="filter-btn px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        客廳
+                    </button>
+                    <button class="filter-btn px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        臥室
+                    </button>
+                    <button class="filter-btn px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        廚房
+                    </button>
+                    <button class="filter-btn px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        浴室
+                    </button>
+                    <button class="filter-btn px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        辦公室
+                    </button>
+                </div>
+            </div>
+            <div class="mt-4 flex flex-wrap items-center">
+                <span class="text-sm font-medium text-gray-700 mr-4">風格:</span>
+                <div class="flex flex-wrap gap-2">
+                    <button class="filter-btn px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        現代簡約
+                    </button>
+                    <button class="filter-btn px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        北歐風格
+                    </button>
+                    <button class="filter-btn px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        工業風
+                    </button>
+                    <button class="filter-btn px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        日式禪風
+                    </button>
+                    <button class="filter-btn px-3 py-1 text-sm border border-gray-300 rounded-full">
+                        美式鄉村
+                    </button>
+                </div>
+            </div>
+            <div class="mt-4 flex flex-wrap items-center">
+                <span class="text-sm font-medium text-gray-700 mr-4">排序:</span>
+                <select class="text-sm border border-gray-300 rounded px-3 py-1">
+                    <option>最新上傳</option>
+                    <option>最多讚</option>
+                    <option>最多收藏</option>
+                    <option>最多瀏覽</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Gallery Item 1 -->
+            <div class="gallery-item bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80" alt="Modern living room" class="w-full h-64 object-cover">
+                    <button class="absolute top-3 right-3 bg-white bg-opacity-70 rounded-full p-2 text-gray-700 hover:text-red-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">現代簡約客廳</h3>
+                    <p class="text-gray-600 text-sm mb-4">簡潔線條與中性色調，創造寬敞明亮的生活空間</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="Designer" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-600">陳設計師</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-heart text-red-500 mr-1"></i> 142</span>
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-eye text-gray-400 mr-1"></i> 3.2k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Item 2 -->
+            <div class="gallery-item bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80" alt="Scandinavian kitchen" class="w-full h-64 object-cover">
+                    <button class="absolute top-3 right-3 bg-white bg-opacity-70 rounded-full p-2 text-gray-700 hover:text-red-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">北歐風格廚房</h3>
+                    <p class="text-gray-600 text-sm mb-4">木質元素與白色調和，打造溫馨實用的烹飪空間</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="Designer" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-600">林設計師</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-heart text-red-500 mr-1"></i> 98</span>
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-eye text-gray-400 mr-1"></i> 2.5k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Item 3 -->
+            <div class="gallery-item bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80" alt="Minimalist bedroom" class="w-full h-64 object-cover">
+                    <button class="absolute top-3 right-3 bg-white bg-opacity-70 rounded-full p-2 text-gray-700 hover:text-red-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">極簡主義臥室</h3>
+                    <p class="text-gray-600 text-sm mb-4">減法設計理念，創造寧靜舒適的休息環境</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="Designer" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-600">王設計師</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-heart text-red-500 mr-1"></i> 76</span>
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-eye text-gray-400 mr-1"></i> 1.8k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Item 4 -->
+            <div class="gallery-item bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80" alt="Industrial style office" class="w-full h-64 object-cover">
+                    <button class="absolute top-3 right-3 bg-white bg-opacity-70 rounded-full p-2 text-gray-700 hover:text-red-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">工業風辦公室</h3>
+                    <p class="text-gray-600 text-sm mb-4">裸露管線與粗獷材質，展現現代都市工作空間的魅力</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="Designer" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-600">張設計師</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-heart text-red-500 mr-1"></i> 64</span>
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-eye text-gray-400 mr-1"></i> 1.5k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Item 5 -->
+            <div class="gallery-item bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80" alt="Japanese style bathroom" class="w-full h-64 object-cover">
+                    <button class="absolute top-3 right-3 bg-white bg-opacity-70 rounded-full p-2 text-gray-700 hover:text-red-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">日式禪風浴室</h3>
+                    <p class="text-gray-600 text-sm mb-4">自然材質與簡約設計，營造寧靜放鬆的沐浴空間</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="Designer" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-600">劉設計師</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-heart text-red-500 mr-1"></i> 52</span>
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-eye text-gray-400 mr-1"></i> 1.2k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Item 6 -->
+            <div class="gallery-item bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80" alt="American country style dining room" class="w-full h-64 object-cover">
+                    <button class="absolute top-3 right-3 bg-white bg-opacity-70 rounded-full p-2 text-gray-700 hover:text-red-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">美式鄉村餐廳</h3>
+                    <p class="text-gray-600 text-sm mb-4">溫馨懷舊的風格，打造家人共聚的溫暖用餐空間</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="Designer" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-600">吳設計師</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-heart text-red-500 mr-1"></i> 48</span>
+                            <span class="flex items-center text-sm text-gray-600"><i class="fas fa-eye text-gray-400 mr-1"></i> 1.1k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-12 flex justify-center">
+            <nav class="flex items-center">
+                <button class="px-3 py-1 rounded-md border border-gray-300 text-gray-500 hover:bg-gray-50 mr-2">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="px-3 py-1 rounded-md bg-indigo-600 text-white font-medium">1</button>
+                <button class="px-3 py-1 rounded-md text-gray-700 hover:bg-gray-50">2</button>
+                <button class="px-3 py-1 rounded-md text-gray-700 hover:bg-gray-50">3</button>
+                <button class="px-3 py-1 rounded-md text-gray-700 hover:bg-gray-50">4</button>
+                <button class="px-3 py-1 rounded-md text-gray-700 hover:bg-gray-50">5</button>
+                <button class="px-3 py-1 rounded-md border border-gray-300 text-gray-500 hover:bg-gray-50 ml-2">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-home text-white text-2xl mr-2"></i>
+                        <span class="font-bold text-xl text-white">InDesign</span>
+                    </div>
+                    <p class="text-sm">打造您夢想中的居家空間，從這裡開始</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">功能</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">設計模擬器</a></li>
+                        <li><a href="#" class="hover:text-white">設計圖庫</a></li>
+                        <li><a href="#" class="hover:text-white">風格建議</a></li>
+                        <li><a href="#" class="hover:text-white">儲存管理</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">資源</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">設計指南</a></li>
+                        <li><a href="#" class="hover:text-white">教學影片</a></li>
+                        <li><a href="#" class="hover:text-white">常見問題</a></li>
+                        <li><a href="#" class="hover:text-white">部落格</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">聯絡我們</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> support@indesign.example.com</li>
+                        <li class="flex items-center"><i class="fas fa-phone mr-2"></i> (02) 2345-6789</li>
+                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> 台北市信義區松仁路100號</li>
+                    </ul>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-sm text-center">
+                <p>&copy; 2025 InDesign 室內設計平台. 保留所有權利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 漢堡選單功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menuBtn');
+            const closeMenu = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const backdrop = document.getElementById('backdrop');
+
+            function toggleMenu() {
+                mobileMenu.classList.toggle('show');
+                backdrop.classList.toggle('show');
+                document.body.classList.toggle('overflow-hidden');
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            closeMenu.addEventListener('click', toggleMenu);
+            backdrop.addEventListener('click', toggleMenu);
+
+            // 處理視窗大小改變
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 640 && mobileMenu.classList.contains('show')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投資追蹤 - 個人理財規劃平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #f8fafc;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .card {
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover {
+      background-color: #edf2f7;
+      border-radius: 0.5rem;
+    }
+    .nav-item.active {
+      background-color: #ebf4ff;
+      color: #3182ce;
+      border-radius: 0.5rem;
+    }
+    .investment-item {
+      transition: all 0.2s ease;
+    }
+    .investment-item:hover {
+      background-color: #f7fafc;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="flex h-screen overflow-hidden">
+    <!-- 側邊導航 -->
+    <aside class="hidden md:flex md:flex-shrink-0">
+      <div class="flex flex-col w-64 border-r border-gray-200 bg-white">
+        <div class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
+          <div class="flex items-center flex-shrink-0 px-4 mb-5">
+            <span class="text-xl font-bold text-blue-600">財務管家</span>
+          </div>
+          <nav class="mt-5 flex-1 px-2 space-y-1">
+            <a href="home.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-home mr-3 text-gray-400"></i>
+              首頁總覽
+            </a>
+            <a href="expense.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-receipt mr-3 text-gray-400"></i>
+              記帳管理
+            </a>
+            <a href="budget.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-wallet mr-3 text-gray-400"></i>
+              預算規劃
+            </a>
+            <a href="investment.html" class="nav-item active flex items-center px-4 py-3 text-sm font-medium">
+              <i class="fas fa-chart-line mr-3 text-blue-500"></i>
+              投資追蹤
+            </a>
+            <a href="profile.html" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600">
+              <i class="fas fa-user-circle mr-3 text-gray-400"></i>
+              個人設定
+            </a>
+          </nav>
+        </div>
+        <div class="flex-shrink-0 flex border-t border-gray-200 p-4">
+          <div class="flex items-center">
+            <div>
+              <img class="h-10 w-10 rounded-full" src="/placeholder.svg?height=40&width=40" alt="使用者頭像">
+            </div>
+            <div class="ml-3">
+              <p class="text-sm font-medium text-gray-700">王小明</p>
+              <p class="text-xs font-medium text-gray-500">查看個人資料</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 主要內容 -->
+    <div class="flex flex-col flex-1 overflow-hidden">
+      <!-- 頂部導航 -->
+      <header class="bg-white shadow-sm z-10">
+        <div class="px-4 sm:px-6 lg:px-8 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <button class="md:hidden mr-2 text-gray-500">
+                <i class="fas fa-bars"></i>
+              </button>
+              <h1 class="text-lg font-semibold text-gray-800">投資追蹤</h1>
+            </div>
+            <div class="flex items-center">
+              <button class="p-2 text-gray-500 hover:text-gray-600">
+                <i class="fas fa-bell"></i>
+              </button>
+              <button class="ml-3 p-2 text-gray-500 hover:text-gray-600">
+                <i class="fas fa-cog"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 主要內容區域 -->
+      <main class="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-6 lg:p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- 左側：投資概覽 -->
+          <div class="lg:col-span-1">
+            <div class="card bg-white rounded-lg shadow p-5 mb-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">投資組合概覽</h3>
+              <div class="mb-6">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-sm font-medium text-gray-600">總資產價值</span>
+                  <span class="text-lg font-bold text-gray-800">$156,780</span>
+                </div>
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-sm font-medium text-gray-600">總投入成本</span>
+                  <span class="text-sm font-medium text-gray-800">$142,500</span>
+                </div>
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-sm font-medium text-gray-600">總收益</span>
+                  <span class="text-sm font-medium text-green-600">+$14,280 (10.0%)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm font-medium text-gray-600">本月收益</span>
+                  <span class="text-sm font-medium text-green-600">+$4,980 (3.2%)</span>
+                </div>
+              </div>
+              <div class="h-64 mb-4">
+                <canvas id="assetAllocationChart"></canvas>
+              </div>
+              <div class="text-center text-sm text-gray-600">
+                資產配置比例
+              </div>
+            </div>
+
+            <!-- 新增投資 -->
+            <div class="card bg-white rounded-lg shadow p-5">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">新增投資</h3>
+              <form>
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="investment-type">
+                    投資類型
+                  </label>
+                  <select id="investment-type" name="investment-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                    <option value="">選擇投資類型</option>
+                    <option value="stock">股票</option>
+                    <option value="fund">基金</option>
+                    <option value="etf">ETF</option>
+                    <option value="bond">債券</option>
+                    <option value="crypto">加密貨幣</option>
+                    <option value="realestate">不動產</option>
+                    <option value="other">其他</option>
+                  </select>
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="investment-name">
+                    投資名稱/代號
+                  </label>
+                  <input type="text" id="investment-name" name="investment-name" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="例如：台積電 (2330)">
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="investment-amount">
+                    投資金額
+                  </label>
+                  <div class="mt-1 relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <span class="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <input type="number" name="investment-amount" id="investment-amount" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="investment-date">
+                    投資日期
+                  </label>
+                  <input type="date" id="investment-date" name="investment-date" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="investment-notes">
+                    備註
+                  </label>
+                  <textarea id="investment-notes" name="investment-notes" rows="3" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="投資理由或其他備註"></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                  <button type="button" class="bg-gray-200 text-gray-700 py-2 px-4 rounded-md mr-2 hover:bg-gray-300 transition-colors">
+                    取消
+                  </button>
+                  <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                    新增
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- 右側：投資表現與列表 -->
+          <div class="lg:col-span-2">
+            <!-- 投資表現圖表 -->
+            <div class="card bg-white rounded-lg shadow p-5 mb-6">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">投資表現</h3>
+                <div class="flex space-x-2">
+                  <button class="text-sm bg-blue-50 text-blue-600 px-3 py-1 rounded-md">1個月</button>
+                  <button class="text-sm text-gray-600 px-3 py-1 rounded-md hover:bg-gray-100">3個月</button>
+                  <button class="text-sm text-gray-600 px-3 py-1 rounded-md hover:bg-gray-100">6個月</button>
+                  <button class="text-sm text-gray-600 px-3 py-1 rounded-md hover:bg-gray-100">1年</button>
+                  <button class="text-sm text-gray-600 px-3 py-1 rounded-md hover:bg-gray-100">全部</button>
+                </div>
+              </div>
+              <div class="h-64">
+                <canvas id="investmentPerformanceChart"></canvas>
+              </div>
+            </div>
+
+            <!-- 投資列表 -->
+            <div class="card bg-white rounded-lg shadow p-5">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">投資列表</h3>
+                <div class="flex space-x-2">
+                  <button class="text-sm text-gray-600 hover:text-gray-800 px-2 py-1 rounded hover:bg-gray-100">
+                    <i class="fas fa-filter mr-1"></i> 篩選
+                  </button>
+                  <button class="text-sm text-gray-600 hover:text-gray-800 px-2 py-1 rounded hover:bg-gray-100">
+                    <i class="fas fa-sort mr-1"></i> 排序
+                  </button>
+                </div>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">投資項目</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">類型</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">投入金額</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">現值</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">報酬率</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    <tr class="investment-item hover:bg-gray-50 transition-colors">
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-blue-100 rounded-full">
+                            <i class="fas fa-building text-blue-600"></i>
+                          </div>
+                          <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900">台積電</div>
+                            <div class="text-sm text-gray-500">2330.TW</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">股票</span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$50,000</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$58,500</td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-sm text-green-600">+17.0%</span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <button class="text-blue-600 hover:text-blue-800 mr-2">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-red-600 hover:text-red-800">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="investment-item hover:bg-gray-50 transition-colors">
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-green-100 rounded-full">
+                            <i class="fas fa-chart-pie text-green-600"></i>
+                          </div>
+                          <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900">全球科技基金</div>
+                            <div class="text-sm text-gray-500">TECH-FUND</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">基金</span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$30,000</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$32,400</td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-sm text-green-600">+8.0%</span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <button class="text-blue-600 hover:text-blue-800 mr-2">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-red-600 hover:text-red-800">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="investment-item hover:bg-gray-50 transition-colors">
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-yellow-100 rounded-full">
+                            <i class="fas fa-coins text-yellow-600"></i>
+                          </div>
+                          <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900">比特幣</div>
+                            <div class="text-sm text-gray-500">BTC</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">加密貨幣</span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$15,000</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$18,750</td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-sm text-green-600">+25.0%</span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <button class="text-blue-600 hover:text-blue-800 mr-2">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-red-600 hover:text-red-800">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="investment-item hover:bg-gray-50 transition-colors">
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-purple-100 rounded-full">
+                            <i class="fas fa-building text-purple-600"></i>
+                          </div>
+                          <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900">聯發科</div>
+                            <div class="text-sm text-gray-500">2454.TW</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">股票</span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$25,000</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$23,750</td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-sm text-red-600">-5.0%</span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <button class="text-blue-600 hover:text-blue-800 mr-2">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-red-600 hover:text-red-800">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="investment-item hover:bg-gray-50 transition-colors">
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-red-100 rounded-full">
+                            <i class="fas fa-home text-red-600"></i>
+                          </div>
+                          <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900">台北市不動產</div>
+                            <div class="text-sm text-gray-500">房地產</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">不動產</span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$22,500</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$23,380</td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-sm text-green-600">+3.9%</span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <button class="text-blue-600 hover:text-blue-800 mr-2">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-red-600 hover:text-red-800">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="flex justify-between items-center mt-4">
+                <div class="text-sm text-gray-500">
+                  顯示 1 至 5 筆，共 5 筆
+                </div>
+                <div class="flex space-x-1">
+                  <button class="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50">
+                    上一頁
+                  </button>
+                  <button class="px-3 py-1 border border-gray-300 bg-blue-50 text-blue-600 rounded-md text-sm">
+                    1
+                  </button>
+                  <button class="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50">
+                    下一頁
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // 資產配置圖表
+    const assetCtx = document.getElementById('assetAllocationChart').getContext('2d');
+    const assetAllocationChart = new Chart(assetCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['股票', '基金', '加密貨幣', '不動產', '現金'],
+        datasets: [{
+          data: [82250, 32400, 18750, 23380, 0],
+          backgroundColor: [
+            '#4299e1', // 藍色
+            '#48bb78', // 綠色
+            '#ecc94b', // 黃色
+            '#ed8936', // 橙色
+            '#a0aec0'  // 灰色
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                const percentage = Math.round((value / total) * 100);
+                return `${label}: $${value} (${percentage}%)`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // 投資表現圖表
+    const performanceCtx = document.getElementById('investmentPerformanceChart').getContext('2d');
+    const investmentPerformanceChart = new Chart(performanceCtx, {
+      type: 'line',
+      data: {
+        labels: ['3/3', '3/10', '3/17', '3/24', '3/31', '4/3'],
+        datasets: [
+          {
+            label: '投資組合價值',
+            data: [148500, 150200, 149800, 152300, 154600, 156780],
+            borderColor: '#4299e1',
+            backgroundColor: 'rgba(66, 153, 225, 0.1)',
+            fill: true,
+            tension: 0.4
+          },
+          {
+            label: '投入成本',
+            data: [142500, 142500, 142500, 142500, 142500, 142500],
+            borderColor: '#a0aec0',
+            borderDash: [5, 5],
+            fill: false,
+            tension: 0
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: false,
+            ticks: {
+              callback: function(value) {
+                return '$' + value;
+              }
+            }
+          }
+        },
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.dataset.label || '';
+                const value = context.raw || 0;
+                return `${label}: $${value}`;
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+
